@@ -49,22 +49,37 @@ class Radar_Beam:
         self.hit_flag = False
 
 
-# -----------------------------------------------------------------------------
+class Radar_Reflect:
 
+    def __init__(self, num_pix):
+        self.num_pix = num_pix
+        self.position = 0
+        self.hit_flag = False
+        self.start_flag = True
+        self.end_flag = False
+        self.direction = False
+
+
+# -----------------------------------------------------------------------------
 def main():
     print("Start Global Init")
-    rb_1 = Radar_Beam(defaults.Radar.num_of_leds)
-    # print(rb_1.get_position())
+    my_rb = []
+    for i in range(defaults.Radar_Beams.num_of_beams):
+        my_rb.append(Radar_Beam(defaults.Radar_Beams.num_of_leds))
+    my_rf = []
+    for i in range(defaults.Radar_Reflect.num_of_beams):
+        my_rf.append(Radar_Reflect(defaults.Radar_Reflect.num_of_leds))
+
     i = 0
     while i < 200:
-        print(rb_1.get_position())
-        if rb_1.get_position() == 25:
-            rb_1.set_hit()
-        if rb_1.get_end_flag():
+        print(my_rb[0].get_position())
+        if my_rb[0].get_position() == 8:
+            my_rb[0].set_hit()
+        if my_rb[0].get_end_flag():
             print("End_Flag")
-        rb_1.next_position()
+        my_rb[0].next_position()
         i += 1
-        time.sleep(0.02)
+        time.sleep(0.3)
 
 
 # ------------------------------------------------------------------------------

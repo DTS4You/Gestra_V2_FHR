@@ -72,9 +72,16 @@ def check_max_targets():
 
 def generate_radar_beams():
     my_radar_beams = []
-    for i in range(defaults.Radar.num_of_beams):
-        my_radar_beams.append(module_radar.Radar_Beam(defaults.Radar.num_of_leds))
+    for i in range(defaults.Radar_Beams.num_of_beams):
+        my_radar_beams.append(module_radar.Radar_Beam(defaults.Radar_Beams.num_of_leds))
     return my_radar_beams
+
+
+def generate_radar_reflect():
+    my_radar_reflects = []
+    for i in range(defaults.Radar_Reflect.num_of_beams):
+        my_radar_reflects.append(module_radar.Radar_Reflect(defaults.Radar_Reflect.num_of_leds))
+    return my_radar_reflects
 
 
 def generate_targets():
@@ -87,15 +94,20 @@ def generate_targets():
 def generate_tracks():
     my_tracks = []
     for i in range(defaults.Tracks.num_of_tracks):
-        my_tracks.append(module_tracks.Track_Seg(defaults.Tracks.num_of_leds, defaults.Tracks.track_hit_y[i]))
+        my_tracks.append(module_tracks.Track_Seg(defaults.Tracks.num_of_leds,
+                                                 defaults.Tracks.direction[i],
+                                                 defaults.Tracks.track_hit_x[i],
+                                                 defaults.Tracks.track_hit_y[i]
+                                                 ))
     return my_tracks
 
 
 def generate_objects():
-    global state_logic, tracks, targets, radar_beams
+    global state_logic, tracks, targets, radar_beams, radar_reflects
     tracks = generate_tracks()
     targets = generate_targets()
     radar_beams = generate_radar_beams()
+    radar_reflects = generate_radar_reflect()
     state_logic = State_Machine()
 
 

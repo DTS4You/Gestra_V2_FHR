@@ -9,11 +9,16 @@ class Stripe:
     pio_no          = [  0,  1,  2,  3,  4,  5,  6,  7]
 
 
-class Radar:
+class Radar_Beams:
     num_of_beams    = 4
     # num_of_leds     = 78              # LEDs in Senderichtung
     num_of_leds     = 12                # LEDs in Senderichtung === Debug ===
     target_hit_pos  = 60                # Trefferposition von Links nach Rechts in LEDs gerechnet
+
+
+class Radar_Reflect:
+    num_of_beams    = 8
+    num_of_leds     = 12                # LEDs in Empfangsrichtung
 
 
 class Target:
