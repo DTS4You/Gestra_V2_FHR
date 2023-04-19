@@ -3,7 +3,6 @@
 # ### V 0.10
 # #############################################################################
 import time
-
 import defaults
 
 
@@ -46,16 +45,10 @@ class Target:
 
 def main():
     print("Start Global Init")
-    tg = Target()
-    #print(tg.get_position())
-    i = 0
-    while i < 200:
-        i += 1
-        tg.next_position()
-        if tg.get_end_flag():
-            print("Start New")
-            tg.set_new()
-        time.sleep(0.02)
+    my_targets = []
+    for i in range(defaults.Target.num_of_targets):
+        my_targets.append(Target())
+    print(len(my_targets))
 
 
 # ------------------------------------------------------------------------------

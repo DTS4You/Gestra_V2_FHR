@@ -23,7 +23,31 @@ class Target:
 class Tracks:
     num_of_tracks   = 24
     num_of_leds     = 78
-    ws2812_pio      =
+    # PIO Nummer -> Zuweisung LED-Segment zu LED-Stripe
+    ws2812_pio      = [  0,         # 1
+                         0,         # 2
+                         0,         # 3
+                         1,         # 4
+                         1,         # 5
+                         1,         # 6
+                         2,         # 7
+                         2,         # 8
+                         2,         # 9
+                         3,         # 10
+                         3,         # 11
+                         3,         # 12
+                         4,         # 13
+                         4,         # 14
+                         4,         # 15
+                         5,         # 16
+                         5,         # 17
+                         5,         # 18
+                         6,         # 19
+                         6,         # 20
+                         6,         # 21
+                         7,         # 22
+                         7,         # 23
+                         7]         # 24
     # Direction -> True = Rechts nach Links -> False = Links nach Rechts
     direction       = [ True,       # 1
                         False,      # 2
