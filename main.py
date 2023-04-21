@@ -6,21 +6,16 @@
 
 import time
 import defaults
-import module_radar
+import module_objects
 
 
 # -----------------------------------------------------------------------------
-def main_loop():
+def main_run():
 
-    print("Main Loop")
-
-    rb_1 = module_radar.Radar_Beam(defaults.Radar.num_of_leds)
+    print("Main Run")
 
     try:
-        while True:
-            print("Do_Loop")
-            print(rb_1)
-            time.sleep(defaults.Values.loop_time)
+        module_objects.generate_objects()
     except KeyboardInterrupt:
         print("Main loop ended!")
 
@@ -28,6 +23,6 @@ def main_loop():
 # =============================================================================
 if __name__ == '__main__':
 
-    main_loop()
+    main_run()
     print("=== End of Program ===")
 # =============================================================================
