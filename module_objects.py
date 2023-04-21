@@ -104,6 +104,7 @@ def generate_tracks():
 
 def generate_objects():
     global state_logic, tracks, targets, radar_beams, radar_reflects
+    print("Generate Objects")
     tracks = generate_tracks()
     targets = generate_targets()
     radar_beams = generate_radar_beams()
