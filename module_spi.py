@@ -26,31 +26,34 @@ class SPI:
         self.spi.init()
         self.msg = bytearray()
         self.data = [0, 0, 0, 0]
-        #self.data[0] = 0
-        #self.data[1] = 0
-        #self.data[2] = 0
-        #self.data[3] = 0
 
-    def reg_write(self, reg, bytes):
-        # Write 1 byte to the specified device and register.
-
-        # Construct message (set ~W bit low, MB bit low)
+    def reg_write(self, reg, num_of_bytes):
         self.msg = bytearray()
-        #self.msg.append(0x00)  # 0x00 -> Device OpCode
         self.msg.append(reg)
-        for i in range(bytes):
+        for i in range(num_of_bytes):
             self.msg.append(self.data[i])
         self.cs.value(0)
         self.spi.write(self.msg)
         self.cs.value(1)
 
+    def ddb_cs(self, value):
+        self.cs.value(value)
+
     def ddb_init(self, num_leds):
-        self.data_0 = num_leds
+        self.data[0] = num_leds
         self.reg_write(0xB1, 1)
 
     def ddb_show(self):
         self.reg_write(0xB2, 0)
 
+    def ddb_set_rgb(self, r, g, b):
+        self.data[0] = r
+        self.data[1] = g
+        self.data[2] = b
+        self.reg_write(0xA1, 3)
+
+    def ddb_show_raw(self):
+        self.spi.write(0xB2)
 
 # -----------------------------------------------------------------------------
 def main():
@@ -59,8 +62,11 @@ def main():
     sleeptime = 0.03
     # Run forever
     while True:
+        #spi.ddb_cs(0)
         spi.ddb_init(20)
+        spi.ddb_set_rgb(20, 20, 20)
         spi.ddb_show()
+        #spi.ddb_cs(1)
         time.sleep(sleeptime)
 
 
