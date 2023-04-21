@@ -15,8 +15,6 @@ led = Pin(25, Pin.OUT)                   # GPIO14 as led output
 led.value(False)                         # LED is off
 
 
-
-
 def timer_init_1(period_ms):        # Timer next Step Radar-Beams
     timer_1 = Timer(-1)
     timer_1.init(period=period_ms, mode=Timer.PERIODIC, callback=toggle_led)
