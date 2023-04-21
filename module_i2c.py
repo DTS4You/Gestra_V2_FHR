@@ -1,7 +1,7 @@
 from machine import Pin, I2C
 from lib.mcp23017 import MCP23017
 
-i2c = I2C(scl=Pin(22), sda=Pin(21))
+i2c = I2C(0, scl=Pin(21), sda=Pin(20))
 mcp = MCP23017(i2c, 0x20)
 
 # list interface
