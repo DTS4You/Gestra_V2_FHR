@@ -6,7 +6,7 @@ from machine import Pin, I2C
 from lib.mcp23017 import MCP23017
 
 
-class MCP23017_IO:
+class GPIO:
 
     def __init__(self):
         i2c = I2C(0, scl=Pin(21), sda=Pin(20))
@@ -21,8 +21,8 @@ class MCP23017_IO:
 
 # -----------------------------------------------------------------------------
 def main():
-    mcp = MCP23017_IO
-    print(mcp.get_input(0))
+    gpio = GPIO
+    print(gpio.get_input(0))
 
 
 # ------------------------------------------------------------------------------
