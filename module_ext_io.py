@@ -1,28 +1,14 @@
 # #############################################################################
-# ### I2C
+# ### Extern IO
 # ### V 0.10
 # #############################################################################
-from machine import Pin, I2C
-from lib.mcp23017 import MCP23017
-
-
-class MCP23017_IO:
-
-    def __init__(self):
-        i2c = I2C(0, scl=Pin(21), sda=Pin(20))
-        self.mcp = MCP23017(i2c, 0x20)
-
-    def get_input(self, pin):
-        return self.mcp.pin(pin, mode=1)
-
-    def set_output(self, pin, state):
-        self.mcp.pin(pin, mode=0, value=state)
+import module_spi
+import module_i2c
 
 
 # -----------------------------------------------------------------------------
 def main():
-    mcp = MCP23017_IO
-    print(mcp.get_input(0))
+    pass
 
 
 # ------------------------------------------------------------------------------
