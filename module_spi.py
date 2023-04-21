@@ -25,18 +25,31 @@ class SPI:
                           miso=machine.Pin(16))
         self.spi.init()
         self.msg = bytearray()
+        self.data = [0, 0, 0, 0]
+        #self.data[0] = 0
+        #self.data[1] = 0
+        #self.data[2] = 0
+        #self.data[3] = 0
 
-    def reg_write(self, reg, data):
+    def reg_write(self, reg, bytes):
         # Write 1 byte to the specified device and register.
 
         # Construct message (set ~W bit low, MB bit low)
         self.msg = bytearray()
-        self.msg.append(0x00)  # 0x00 -> Device OpCode
+        #self.msg.append(0x00)  # 0x00 -> Device OpCode
         self.msg.append(reg)
-        self.msg.append(data)
+        for i in range(bytes):
+            self.msg.append(self.data[i])
         self.cs.value(0)
         self.spi.write(self.msg)
         self.cs.value(1)
+
+    def ddb_init(self, num_leds):
+        self.data_0 = num_leds
+        self.reg_write(0xB1, 1)
+
+    def ddb_show(self):
+        self.reg_write(0xB2, 0)
 
 
 # -----------------------------------------------------------------------------
@@ -46,7 +59,8 @@ def main():
     sleeptime = 0.03
     # Run forever
     while True:
-        spi.reg_write(0x00, 0b00000001)
+        spi.ddb_init(20)
+        spi.ddb_show()
         time.sleep(sleeptime)
 
 
