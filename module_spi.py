@@ -6,70 +6,55 @@ import machine
 import time
 
 
+class SPI:
 
-###############################################################################
-# Settings
+    def __init__(self):
+        # Assign chip select (CS) pin (and start it high)
+        self.cs = machine.Pin(17, machine.Pin.OUT)
+        self.cs.value(1)
 
-# Assign chip select (CS) pin (and start it high)
-cs = machine.Pin(17, machine.Pin.OUT)
+        # Initialize SPI
+        self.spi = machine.SPI(0,
+                          baudrate=1000000,
+                          polarity=1,
+                          phase=1,
+                          bits=8,
+                          firstbit=machine.SPI.MSB,
+                          sck=machine.Pin(18),
+                          mosi=machine.Pin(19),
+                          miso=machine.Pin(16))
+        self.spi.init()
+        self.msg = bytearray()
 
-# Initialize SPI
-spi = machine.SPI(0,
-                  baudrate=1000000,
-                  polarity=1,
-                  phase=1,
-                  bits=8,
-                  firstbit=machine.SPI.MSB,
-                  sck=machine.Pin(18),
-                  mosi=machine.Pin(19),
-                  miso=machine.Pin(16))
-spi.init()  # bringt keine Änderung
+    def reg_write(self, reg, data):
+        # Write 1 byte to the specified device and register.
 
-
-###############################################################################
-
-
-# Functions
-
-def reg_write(reg, data):
-    # Write 1 byte to the specified device and register.
-
-    # Construct message (set ~W bit low, MB bit low)
-    msg = bytearray()
-    msg.append(0x00)  # 0x00 -> Device OpCode
-    msg.append(reg)
-    msg.append(data)
-    cs.value(0)
-    spi.write(msg)
-    cs.value(1)
+        # Construct message (set ~W bit low, MB bit low)
+        self.msg = bytearray()
+        self.msg.append(0x00)  # 0x00 -> Device OpCode
+        self.msg.append(reg)
+        self.msg.append(data)
+        self.cs.value(0)
+        self.spi.write(self.msg)
+        self.cs.value(1)
 
 
-def reg_read(reg, nbytes=1):
-    # Read 1 byte from specified register.
+# -----------------------------------------------------------------------------
+def main():
+    spi = SPI()
 
-    # Construct message
-    msg = bytearray()
-    msg.append(0x00 | 1)  # 0x00 ->  | write bit
-    msg.append(reg)
-
-    # Send out SPI message and read
-    cs.value(0)
-    spi.write(msg)
-    data = spi.read(nbytes)
-    cs.value(1)
-    return data
+    sleeptime = 0.03
+    # Run forever
+    while True:
+        spi.reg_write(0x00, 0b00000001)
+        time.sleep(sleeptime)
 
 
-###############################################################################
-# Main
+# ------------------------------------------------------------------------------
+# --- Main
+# ------------------------------------------------------------------------------
 
-# Start CS pin high
-cs.value(1)
+if __name__ == "__main__":
+    main()
 
-
-sleeptime = 0.03
-# Run forever
-while True:
-
-    reg_write(0x00, 0b00000001)
-    time.sleep(sleeptime)
+# =============================================================================
