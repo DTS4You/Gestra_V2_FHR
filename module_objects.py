@@ -8,6 +8,7 @@ import defaults
 import module_radar
 import module_target
 import module_tracks
+from module_spi import SPI
 import random
 
 
@@ -102,14 +103,27 @@ def generate_tracks():
     return my_tracks
 
 
+def init_ddbs():
+    for i in range(defaults.DDB.num_of_ddbs):
+        ddb.ddb_init(i, 40)
+
+
+def ddbs_default():
+    for i in range(defaults.DDB.num_of_ddbs):
+        ddb.ddb_set_rgb(i, 0, 0, 10)
+        ddb.ddb_set_all(i)
+        time.sleep_ms(20)
+        ddb.ddb_show(i)
+
 def generate_objects():
-    global state_logic, tracks, targets, radar_beams, radar_reflects
+    global state_logic, tracks, targets, radar_beams, radar_reflects, ddb
     print("Generate Objects")
     tracks = generate_tracks()
     targets = generate_targets()
     radar_beams = generate_radar_beams()
     radar_reflects = generate_radar_reflect()
     state_logic = State_Machine()
+    ddb = SPI()
 
 
 # -----------------------------------------------------------------------------

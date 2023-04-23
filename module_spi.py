@@ -53,6 +53,7 @@ class SPI:
         self.data[0] = num_leds
         self.data[1] = 24
         self.reg_write(0xB1, 2)
+        time.sleep_ms(20)
 
     def ddb_show(self, ddb):
         self.ddb_num = ddb
@@ -86,10 +87,8 @@ def main():
 
     for i in range(4):
         spi.ddb_init(i, 20)
-    time.sleep(0.03)
     for i in range(4):
         spi.ddb_init(i, 20)
-    time.sleep(0.03)
 
     i = 0
     # Run forever

@@ -16,10 +16,11 @@ def main_run():
 
     print("Main Run")
 
-    try:
-        module_objects.generate_objects()
-    except KeyboardInterrupt:
-        print("Main loop ended!")
+    module_objects.generate_objects()
+    module_objects.init_ddbs()
+    module_objects.ddbs_default()
+
+    print("Main loop end!")
 
 
 # =============================================================================

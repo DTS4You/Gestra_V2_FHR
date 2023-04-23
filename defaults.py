@@ -2,6 +2,10 @@
 # MyGlobals
 ###############################################################################
 
+class DDB:
+    num_of_ddbs     = 4
+
+
 class Stripe:
     num_of_stripes  = 8
     num_of_leds     = 240                                  # Kann über die Segmente berechnet werden
