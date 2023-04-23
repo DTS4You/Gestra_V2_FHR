@@ -18,8 +18,6 @@ def main_run():
 
     try:
         module_objects.generate_objects()
-        # print(micropython.mem_info())
-        # print(machine.freq())
     except KeyboardInterrupt:
         print("Main loop ended!")
 
