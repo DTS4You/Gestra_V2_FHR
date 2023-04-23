@@ -76,6 +76,10 @@ def generate_radar_beams():
     my_radar_beams = []
     for i in range(defaults.Radar_Beams.num_of_beams):
         my_radar_beams.append(module_radar.Radar_Beam(defaults.Radar_Beams.num_of_leds))
+    my_radar_beams[0].led_offset = defaults.Radar_Reflect.num_led_left[0] + defaults.Radar_Reflect.num_led_right[0]
+    my_radar_beams[1].led_offset = defaults.Radar_Reflect.num_led_left[1] + defaults.Radar_Reflect.num_led_right[1]
+    my_radar_beams[2].led_offset = defaults.Radar_Reflect.num_led_left[2] + defaults.Radar_Reflect.num_led_right[2]
+    my_radar_beams[3].led_offset = defaults.Radar_Reflect.num_led_left[3] + defaults.Radar_Reflect.num_led_right[3]
     return my_radar_beams
 
 
@@ -119,7 +123,6 @@ def ddbs_default():
 
 def ws2812_defaults():
     for i in range(len(stripe)):
-        print("Init WS2812", i)
         stripe[i].brightness(255)
         stripe[i].fill((0, 0, 10))
         stripe[i].show()
@@ -148,6 +151,7 @@ def main():
     print("Start Objects")
     generate_objects()
     ws2812_defaults()
+    print(radar_beams[0].led_offset)
     #i = 0
     #while i < 50:
     #    state_logic.next_step()

@@ -16,6 +16,7 @@ class Radar_Beam:
         self.start_flag = True
         self.end_flag = False
         self.direction = False
+        self.led_offset = 0
 
     def next_position(self):
         if not self.end_flag:

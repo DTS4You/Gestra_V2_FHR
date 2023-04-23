@@ -23,6 +23,23 @@ class Radar_Beams:
 class Radar_Reflect:
     num_of_beams    = 8
     num_of_leds     = 12                # LEDs in Empfangsrichtung
+    num_led_left    = [ 10,             # 1. LED-Stripe Left
+                        10,             # 2. LED-Stripe Left
+                        10,             # 3. LED-Stripe Left
+                        10,             # 4. LED-Stripe Left
+                        10,             # 5. LED-Stripe Left
+                        10,             # 6. LED-Stripe Left
+                        10,             # 7. LED-Stripe Left
+                        10]             # 8. LED-Stripe Left
+
+    num_led_right   = [ 10,             # 1. LED-Stripe Right
+                        10,             # 2. LED-Stripe Right
+                        10,             # 3. LED-Stripe Right
+                        10,             # 4. LED-Stripe Right
+                        10,             # 5. LED-Stripe Right
+                        10,             # 6. LED-Stripe Right
+                        10,             # 7. LED-Stripe Right
+                        10]             # 8. LED-Stripe Right
 
 
 class Target:
