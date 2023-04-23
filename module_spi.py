@@ -32,7 +32,7 @@ class SPI:
                                mosi=machine.Pin(19),
                                miso=machine.Pin(16))
         self.spi.init()
-        self.ddb_num = 0            # 0-3 -> DigiDot-Booster Modul
+        self.ddb_num = 0  # 0-3 -> DigiDot-Booster Modul
         self.msg = bytearray()
         self.data = [0, 0, 0, 0]
 
@@ -51,7 +51,8 @@ class SPI:
     def ddb_init(self, ddb, num_leds):
         self.ddb_num = ddb
         self.data[0] = num_leds
-        self.reg_write(0xB1, 1)
+        self.data[1] = 24
+        self.reg_write(0xB1, 2)
 
     def ddb_show(self, ddb):
         self.ddb_num = ddb
@@ -68,7 +69,7 @@ class SPI:
         self.ddb_num = ddb
         self.data[0] = num
         self.reg_write(0xA4, 1)
-        
+
     def ddb_set_all(self, ddb):
         self.ddb_num = ddb
         self.reg_write(0xA5, 0)
@@ -76,23 +77,24 @@ class SPI:
     def ddb_show_raw(self):
         self.spi.write(0xB2)
 
+
 # -----------------------------------------------------------------------------
 def main():
     spi = SPI()
 
     sleeptime = 30
 
-    for i in range(3):
+    for i in range(4):
         spi.ddb_init(i, 20)
     time.sleep(0.03)
-    for i in range(3):
+    for i in range(4):
         spi.ddb_init(i, 20)
     time.sleep(0.03)
-    
+
     i = 0
     # Run forever
     while True:
-        #spi.ddb_cs(0)
+        # spi.ddb_cs(0)
         for ddb in range(4):
             spi.ddb_set_rgb(ddb, 0, 0, 0)
             spi.ddb_set_all(ddb)
@@ -118,3 +120,4 @@ if __name__ == "__main__":
     main()
 
 # =============================================================================
+
