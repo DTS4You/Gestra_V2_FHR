@@ -9,6 +9,7 @@ import module_radar
 import module_target
 import module_tracks
 from module_spi import SPI
+from lib.neopixel import Neopixel
 import random
 
 
@@ -115,8 +116,17 @@ def ddbs_default():
         time.sleep_ms(20)
         ddb.ddb_show(i)
 
+
+def ws2812_defaults():
+    for i in range(len(stripe)):
+        print("Init WS2812", i)
+        stripe[i].brightness(255)
+        stripe[i].fill((0, 0, 10))
+        stripe[i].show()
+
+
 def generate_objects():
-    global state_logic, tracks, targets, radar_beams, radar_reflects, ddb
+    global state_logic, tracks, targets, radar_beams, radar_reflects, ddb, stripe
     print("Generate Objects")
     tracks = generate_tracks()
     targets = generate_targets()
@@ -124,6 +134,12 @@ def generate_objects():
     radar_reflects = generate_radar_reflect()
     state_logic = State_Machine()
     ddb = SPI()
+    stripe = []
+    for i in range(defaults.Stripe.num_of_stripes):
+        stripe.append(Neopixel(defaults.Stripe.num_of_leds,
+                               defaults.Stripe.pio_no[i],
+                               defaults.Stripe.pin_no[i],
+                               "GRB"))
 
 
 # -----------------------------------------------------------------------------
@@ -131,13 +147,14 @@ def generate_objects():
 def main():
     print("Start Objects")
     generate_objects()
-    i = 0
-    while i < 50:
-        state_logic.next_step()
-        #print(state_logic.check_radar_end())
-        #print(state_logic.wait_cycles)
-        i += 1
-        time.sleep(0.3)
+    ws2812_defaults()
+    #i = 0
+    #while i < 50:
+    #    state_logic.next_step()
+    #    #print(state_logic.check_radar_end())
+    #    #print(state_logic.wait_cycles)
+    #    i += 1
+    #    time.sleep(0.3)
 
 
 # ------------------------------------------------------------------------------

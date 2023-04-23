@@ -12,20 +12,32 @@ import module_objects
 
 
 # -----------------------------------------------------------------------------
-def main_run():
+def init_run():
 
-    print("Main Run")
+    print("Init Run")
 
     module_objects.generate_objects()
     module_objects.init_ddbs()
     module_objects.ddbs_default()
+    module_objects.ws2812_defaults()
 
-    print("Main loop end!")
+    print("Init End!")
+
+
+# -----------------------------------------------------------------------------
+def loop_run():
+    loop_time = 200
+    i = 0
+    while True:
+        module_objects.ddbs_default()
+        module_objects.ws2812_defaults()
+        time.sleep_ms(loop_time)
 
 
 # =============================================================================
 if __name__ == '__main__':
 
-    main_run()
+    init_run()
+    loop_run()
     print("=== End of Program ===")
 # =============================================================================

@@ -8,9 +8,9 @@ class DDB:
 
 class Stripe:
     num_of_stripes  = 8
-    num_of_leds     = 240                                  # Kann über die Segmente berechnet werden
-    pin_no          = [  0,  1,  2,  3,  4,  5,  6,  7]
-    pio_no          = [  0,  1,  2,  3,  4,  5,  6,  7]
+    num_of_leds     = 240                                   # Kann über die Segmente berechnet werden
+    pio_no          = [  0,  1,  2,  3,  4,  5,  6,  7]     # PIO 0-7
+    pin_no          = [  2,  3,  4,  5,  6,  7,  8,  9]     # GPIO 2-9
 
 
 class Radar_Beams:
