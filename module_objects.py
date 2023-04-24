@@ -3,7 +3,6 @@
 # ### V 0.10
 # #############################################################################
 import time
-
 import defaults
 import module_radar
 import module_target
@@ -16,12 +15,12 @@ import random
 class State_Machine():
 
     def __init__(self, wait_cycles=2):
-        self.wait_cycles        = wait_cycles               # Wartezyklen bis ein neues Schrottteil erzeugt wird
-        self.wait_counter       = 0                         # Zähler für Wartezyklen
-        self.new_flag           = True
-        self.step_target_flag   = False                     # Nächtste Target Position
-        self.max_target_flag    = False                     # Maximale Anzahl der Schrottteile erreicht
-        self.radar_end_flag     = False                     # Alle Radar-Strahlen sind am Ende
+        self.wait_cycles = wait_cycles  # Wartezyklen bis ein neues Schrottteil erzeugt wird
+        self.wait_counter = 0  # Zähler für Wartezyklen
+        self.new_flag = True
+        self.step_target_flag = False  # Nächtste Target Position
+        self.max_target_flag = False  # Maximale Anzahl der Schrottteile erreicht
+        self.radar_end_flag = False  # Alle Radar-Strahlen sind am Ende
 
     def next_step(self):
         if self.check_radar_end():
@@ -76,10 +75,18 @@ def generate_radar_beams():
     my_radar_beams = []
     for i in range(defaults.Radar_Beams.num_of_beams):
         my_radar_beams.append(module_radar.Radar_Beam(defaults.Radar_Beams.num_of_leds))
-    my_radar_beams[0].led_offset = defaults.Radar_Reflect.num_led_left[0] + defaults.Radar_Reflect.num_led_right[0]
-    my_radar_beams[1].led_offset = defaults.Radar_Reflect.num_led_left[1] + defaults.Radar_Reflect.num_led_right[1]
-    my_radar_beams[2].led_offset = defaults.Radar_Reflect.num_led_left[2] + defaults.Radar_Reflect.num_led_right[2]
-    my_radar_beams[3].led_offset = defaults.Radar_Reflect.num_led_left[3] + defaults.Radar_Reflect.num_led_right[3]
+    my_radar_beams[0].offset = defaults.Radar_Reflect.num_of_leds[0] + defaults.Radar_Reflect.num_of_leds[1] + \
+                                   defaults.Radar_Reflect.num_of_leds[2] + defaults.Radar_Reflect.num_of_leds[3]
+    my_radar_beams[0].ddb = defaults.Radar_Beams.ddb[0]
+    my_radar_beams[1].offset = defaults.Radar_Reflect.num_of_leds[4] + defaults.Radar_Reflect.num_of_leds[5] + \
+                                   defaults.Radar_Reflect.num_of_leds[6] + defaults.Radar_Reflect.num_of_leds[7]
+    my_radar_beams[1].ddb = defaults.Radar_Beams.ddb[1]
+    my_radar_beams[2].offset = defaults.Radar_Reflect.num_of_leds[8] + defaults.Radar_Reflect.num_of_leds[9] + \
+                                   defaults.Radar_Reflect.num_of_leds[10] + defaults.Radar_Reflect.num_of_leds[11]
+    my_radar_beams[2].ddb = defaults.Radar_Beams.ddb[2]
+    my_radar_beams[3].offset = defaults.Radar_Reflect.num_of_leds[12] + defaults.Radar_Reflect.num_of_leds[13] + \
+                                   defaults.Radar_Reflect.num_of_leds[14] + defaults.Radar_Reflect.num_of_leds[15]
+    my_radar_beams[3].ddb = defaults.Radar_Beams.ddb[3]
     return my_radar_beams
 
 
@@ -87,6 +94,38 @@ def generate_radar_reflect():
     my_radar_reflects = []
     for i in range(defaults.Radar_Reflect.num_of_beams):
         my_radar_reflects.append(module_radar.Radar_Reflect(defaults.Radar_Reflect.num_of_leds))
+    my_radar_reflects[0].offset = 0
+    my_radar_reflects[1].offset = defaults.Radar_Reflect.num_of_leds[0]
+    my_radar_reflects[2].offset = my_radar_reflects[1].offset + defaults.Radar_Reflect.num_of_leds[1]
+    my_radar_reflects[3].offset = my_radar_reflects[2].offset + defaults.Radar_Reflect.num_of_leds[2]
+    my_radar_reflects[4].offset = 0
+    my_radar_reflects[5].offset = defaults.Radar_Reflect.num_of_leds[4]
+    my_radar_reflects[6].offset = my_radar_reflects[5].offset + defaults.Radar_Reflect.num_of_leds[5]
+    my_radar_reflects[7].offset = my_radar_reflects[6].offset + defaults.Radar_Reflect.num_of_leds[6]
+    my_radar_reflects[8].offset = 0
+    my_radar_reflects[9].offset = defaults.Radar_Reflect.num_of_leds[8]
+    my_radar_reflects[10].offset = my_radar_reflects[9].offset + defaults.Radar_Reflect.num_of_leds[9]
+    my_radar_reflects[11].offset = my_radar_reflects[10].offset + defaults.Radar_Reflect.num_of_leds[10]
+    my_radar_reflects[12].offset = 0
+    my_radar_reflects[13].offset = defaults.Radar_Reflect.num_of_leds[0]
+    my_radar_reflects[14].offset = my_radar_reflects[12].offset + defaults.Radar_Reflect.num_of_leds[12]
+    my_radar_reflects[15].offset = my_radar_reflects[13].offset + defaults.Radar_Reflect.num_of_leds[13]
+    my_radar_reflects[0].ddb = defaults.Radar_Reflect.num_of_ddb[0]
+    my_radar_reflects[1].ddb = defaults.Radar_Reflect.num_of_ddb[1]
+    my_radar_reflects[2].ddb = defaults.Radar_Reflect.num_of_ddb[2]
+    my_radar_reflects[3].ddb = defaults.Radar_Reflect.num_of_ddb[3]
+    my_radar_reflects[4].ddb = defaults.Radar_Reflect.num_of_ddb[4]
+    my_radar_reflects[5].ddb = defaults.Radar_Reflect.num_of_ddb[5]
+    my_radar_reflects[6].ddb = defaults.Radar_Reflect.num_of_ddb[6]
+    my_radar_reflects[7].ddb = defaults.Radar_Reflect.num_of_ddb[7]
+    my_radar_reflects[8].ddb = defaults.Radar_Reflect.num_of_ddb[0]
+    my_radar_reflects[9].ddb = defaults.Radar_Reflect.num_of_ddb[9]
+    my_radar_reflects[10].ddb = defaults.Radar_Reflect.num_of_ddb[10]
+    my_radar_reflects[11].ddb = defaults.Radar_Reflect.num_of_ddb[11]
+    my_radar_reflects[12].ddb = defaults.Radar_Reflect.num_of_ddb[12]
+    my_radar_reflects[13].ddb = defaults.Radar_Reflect.num_of_ddb[13]
+    my_radar_reflects[14].ddb = defaults.Radar_Reflect.num_of_ddb[14]
+    my_radar_reflects[15].ddb = defaults.Radar_Reflect.num_of_ddb[15]
     return my_radar_reflects
 
 
@@ -110,7 +149,8 @@ def generate_tracks():
 
 def init_ddbs():
     for i in range(defaults.DDB.num_of_ddbs):
-        ddb.ddb_init(i, 40)
+        ddb.ddb_init(i, radar_beams[i].offset + radar_beams[i].num_pix)
+        print(radar_beams[i].offset + radar_beams[i].num_pix)
 
 
 def ddbs_default():
@@ -126,6 +166,12 @@ def ws2812_defaults():
         stripe[i].brightness(255)
         stripe[i].fill((0, 0, 10))
         stripe[i].show()
+
+
+def set_pixel_ddb_beams(beam, pos):
+    ddb_num = radar_beams[beam].ddb
+    ddb.ddb_set_rgb(ddb_num, 0, 10, 0)
+    ddb.ddb_set_led(ddb_num, pos + radar_beams[beam].offset)
 
 
 def generate_objects():
@@ -150,10 +196,16 @@ def generate_objects():
 def main():
     print("Start Objects")
     generate_objects()
+    init_ddbs()
+    ddbs_default()
     ws2812_defaults()
-    print(radar_beams[0].led_offset)
-    #i = 0
-    #while i < 50:
+    for i in range(len(radar_beams)):
+        print(radar_beams[i].offset, radar_beams[i].ddb)
+    set_pixel_ddb_beams(0, 0)
+    ddb.ddb_show(0)
+
+    # i = 0
+    # while i < 50:
     #    state_logic.next_step()
     #    #print(state_logic.check_radar_end())
     #    #print(state_logic.wait_cycles)

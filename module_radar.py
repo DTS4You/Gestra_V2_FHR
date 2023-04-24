@@ -11,12 +11,13 @@ class Radar_Beam:
 
     def __init__(self, num_pix):
         self.num_pix = num_pix
+        self.offset = 0
+        self.ddb = 0
         self.position = 0
         self.hit_flag = False
         self.start_flag = True
         self.end_flag = False
         self.direction = False
-        self.led_offset = 0
 
     def next_position(self):
         if not self.end_flag:
@@ -54,6 +55,8 @@ class Radar_Reflect:
 
     def __init__(self, num_pix):
         self.num_pix = num_pix
+        self.offset = 0
+        self.ddb = 0
         self.position = 0
         self.hit_flag = False
         self.start_flag = True
