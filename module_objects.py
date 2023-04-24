@@ -93,7 +93,8 @@ def generate_radar_beams():
 def generate_radar_reflect():
     my_radar_reflects = []
     for i in range(defaults.Radar_Reflect.num_of_beams):
-        my_radar_reflects.append(module_radar.Radar_Reflect(defaults.Radar_Reflect.num_of_leds))
+        my_radar_reflects.append(module_radar.Radar_Reflect(defaults.Radar_Reflect.num_of_leds[i],
+                                                            defaults.Radar_Reflect.direction[i]))
     my_radar_reflects[0].offset = 0
     my_radar_reflects[1].offset = defaults.Radar_Reflect.num_of_leds[0]
     my_radar_reflects[2].offset = my_radar_reflects[1].offset + defaults.Radar_Reflect.num_of_leds[1]
@@ -107,9 +108,9 @@ def generate_radar_reflect():
     my_radar_reflects[10].offset = my_radar_reflects[9].offset + defaults.Radar_Reflect.num_of_leds[9]
     my_radar_reflects[11].offset = my_radar_reflects[10].offset + defaults.Radar_Reflect.num_of_leds[10]
     my_radar_reflects[12].offset = 0
-    my_radar_reflects[13].offset = defaults.Radar_Reflect.num_of_leds[0]
-    my_radar_reflects[14].offset = my_radar_reflects[12].offset + defaults.Radar_Reflect.num_of_leds[12]
-    my_radar_reflects[15].offset = my_radar_reflects[13].offset + defaults.Radar_Reflect.num_of_leds[13]
+    my_radar_reflects[13].offset = defaults.Radar_Reflect.num_of_leds[12]
+    my_radar_reflects[14].offset = my_radar_reflects[13].offset + defaults.Radar_Reflect.num_of_leds[13]
+    my_radar_reflects[15].offset = my_radar_reflects[14].offset + defaults.Radar_Reflect.num_of_leds[14]
     my_radar_reflects[0].ddb = defaults.Radar_Reflect.num_of_ddb[0]
     my_radar_reflects[1].ddb = defaults.Radar_Reflect.num_of_ddb[1]
     my_radar_reflects[2].ddb = defaults.Radar_Reflect.num_of_ddb[2]
@@ -118,7 +119,7 @@ def generate_radar_reflect():
     my_radar_reflects[5].ddb = defaults.Radar_Reflect.num_of_ddb[5]
     my_radar_reflects[6].ddb = defaults.Radar_Reflect.num_of_ddb[6]
     my_radar_reflects[7].ddb = defaults.Radar_Reflect.num_of_ddb[7]
-    my_radar_reflects[8].ddb = defaults.Radar_Reflect.num_of_ddb[0]
+    my_radar_reflects[8].ddb = defaults.Radar_Reflect.num_of_ddb[8]
     my_radar_reflects[9].ddb = defaults.Radar_Reflect.num_of_ddb[9]
     my_radar_reflects[10].ddb = defaults.Radar_Reflect.num_of_ddb[10]
     my_radar_reflects[11].ddb = defaults.Radar_Reflect.num_of_ddb[11]
@@ -150,7 +151,7 @@ def generate_tracks():
 def init_ddbs():
     for i in range(defaults.DDB.num_of_ddbs):
         ddb.ddb_init(i, radar_beams[i].offset + radar_beams[i].num_pix)
-        print(radar_beams[i].offset + radar_beams[i].num_pix)
+        # print(radar_beams[i].offset + radar_beams[i].num_pix)
 
 
 def ddbs_default():
@@ -168,10 +169,28 @@ def ws2812_defaults():
         stripe[i].show()
 
 
-def set_pixel_ddb_beams(beam, pos):
+def set_pixel_ddb_beams(beam, pos, color=defaults.Colors.default):
+    r = color[0]
+    g = color[1]
+    b = color[2]
     ddb_num = radar_beams[beam].ddb
-    ddb.ddb_set_rgb(ddb_num, 0, 10, 0)
+    ddb.ddb_set_rgb(ddb_num, r, g, b)
     ddb.ddb_set_led(ddb_num, pos + radar_beams[beam].offset)
+
+
+def set_pixel_ddb_reflect(beam, pos, color=defaults.Colors.default):
+    r = color[0]
+    g = color[1]
+    b = color[2]
+    ddb_num = radar_reflects[beam].ddb
+    ddb.ddb_set_rgb(ddb_num, r, g, b)
+    if radar_reflects[beam].direction:
+        # print("Top-Bot")
+        pos = radar_reflects[beam].num_pix - pos - 1
+    else:
+        # print("Bot-Top")
+        pass
+    ddb.ddb_set_led(ddb_num, pos + radar_reflects[beam].offset)
 
 
 def generate_objects():
@@ -199,11 +218,16 @@ def main():
     init_ddbs()
     ddbs_default()
     ws2812_defaults()
-    for i in range(len(radar_beams)):
-        print(radar_beams[i].offset, radar_beams[i].ddb)
-    set_pixel_ddb_beams(0, 0)
+    for i in range(4):
+        set_pixel_ddb_beams(i, 0, defaults.Colors.start)
+        set_pixel_ddb_beams(i, radar_beams[i].num_pix - 1, defaults.Colors.end)
+    for i in range(16):
+        set_pixel_ddb_reflect(i, 0, defaults.Colors.start)
+        set_pixel_ddb_reflect(i, radar_reflects[i].num_pix - 1, defaults.Colors.end)
     ddb.ddb_show(0)
-
+    ddb.ddb_show(1)
+    ddb.ddb_show(2)
+    ddb.ddb_show(3)
     # i = 0
     # while i < 50:
     #    state_logic.next_step()

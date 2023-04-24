@@ -57,6 +57,23 @@ class Radar_Reflect:
                         4]             # 15 -> 16. LED-Stripe
     num_of_ddb      = [ 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3]
 
+    direction       = [ True,           # 0
+                        False,          # 1
+                        True,           # 2
+                        False,          # 3
+                        True,           # 4
+                        False,          # 5
+                        True,           # 6
+                        False,          # 7
+                        True,           # 8
+                        False,          # 9
+                        True,           # 10
+                        False,          # 11
+                        True,           # 12
+                        False,          # 13
+                        True,           # 14
+                        False]          # 15
+
 
 class Target:
     num_of_targets = 10
@@ -64,7 +81,7 @@ class Target:
 
 class Tracks:
     num_of_tracks   = 24
-    num_of_leds     = 78
+    num_of_leds     = 79
     # PIO Nummer -> Zuweisung LED-Segment zu LED-Stripe
     ws2812_pio      = [  0,         # 1
                          0,         # 2
@@ -169,6 +186,9 @@ class Tracks:
 
 
 class Colors:
+    default         = [  0,  0,  5]
+    start           = [  0, 20,  0]
+    end             = [ 20,  0,  0]
     target          = [ 10, 20, 30]
     radar_send      = [ 10, 20, 30]
     radar_receive   = [ 10, 20, 30]
