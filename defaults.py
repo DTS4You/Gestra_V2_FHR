@@ -189,6 +189,8 @@ class Colors:
     default         = [  0,  0,  5]
     start           = [  0, 20,  0]
     end             = [ 20,  0,  0]
+    led_on          = [ 50, 50, 50]
+    led_off         = [  0,  0,  0]
     target          = [ 10, 20, 30]
     radar_send      = [ 10, 20, 30]
     radar_receive   = [ 10, 20, 30]
