@@ -194,12 +194,10 @@ def set_pixel_ddb_reflect(beam, pos, color=defaults.Colors.default):
     ddb.ddb_set_led(ddb_num, pos + radar_reflects[beam].offset)
 
 
-# Set Pixel on the WS2812 Bus
-def set_pixel_ws2812(target, pos, color=defaults.Colors.default):
+def ws2812_set_pixel(target, pos, color=defaults.Colors.default):       # !!! New
     r, b, g = color
-    my_stripe = targets[target].track_num
-    print(r, g, b)
-    pass
+    _stripe = targets[target].track_num
+    print(_stripe, pos, r, g, b)
 
 
 def generate_objects():

@@ -61,7 +61,7 @@ class SPI:
         self.ddb_num = ddb
         self.reg_write(0xB2, 0)
 
-    def ddb_show_all(self):
+    def ddb_show_all(self):                         # Alle Digi-Dot-Booster -> Show
         for i in range(defaults.DDB.num_of_ddbs):
             self.ddb_show(i)
 
