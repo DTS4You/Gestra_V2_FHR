@@ -141,6 +141,7 @@ def generate_tracks():
     my_tracks = []
     for i in range(defaults.Tracks.num_of_tracks):
         my_tracks.append(module_tracks.Track_Seg(defaults.Tracks.num_of_leds,
+                                                 defaults.Tracks.offset[i],
                                                  defaults.Tracks.direction[i],
                                                  defaults.Tracks.track_hit_x[i],
                                                  defaults.Tracks.track_hit_y[i]
@@ -191,6 +192,14 @@ def set_pixel_ddb_reflect(beam, pos, color=defaults.Colors.default):
         # print("Bot-Top")
         pass
     ddb.ddb_set_led(ddb_num, pos + radar_reflects[beam].offset)
+
+
+# Set Pixel on the WS2812 Bus
+def set_pixel_ws2812(target, pos, color=defaults.Colors.default):
+    r, b, g = color
+    my_stripe = targets[target].track_num
+    print(r, g, b)
+    pass
 
 
 def generate_objects():

@@ -7,28 +7,28 @@
 import time
 import defaults
 
-loop_time = defaults.Values.loop_time
+loop_time = 0.5
+
+color = ( 0, 10, 0)
 
 
-class Logic:
-
-    def __init__(self):
-        self.input_state = [ False, False, False, False]
-        self.output_flag = False
-
-    def set_state(self, num):
-        self.input_state[num] = True
-
-    def clear_state(self, num):
-        self.input_state[num] = False
-
-    def check_state_or(self):
-        for i in range(len(self.input_state)):
-            self.output_flag = self.output_flag or self.input_state[i]
-        return self.output_flag
+class Colors:
+    default         = (  0,  0,  5)
+    start           = (  0, 20,  0)
+    end             = ( 20,  0,  0)
+    led_on          = ( 50, 50, 50)
+    led_off         = (  0,  0,  0)
+    target          = ( 10, 20, 30)
+    radar_send      = ( 10, 20, 30)
+    radar_receive   = ( 10, 20, 30)
 
 
-array = [0, 1, 2, 3]
+def set_pixel_ws2812(led_pio, pos, my_color=defaults.Colors.default):
+    r, g, b = my_color
+    lr = my_color[0]
+    lg = my_color[1]
+    lb = my_color[2]
+    print(my_color, " -> ", r, g, b, " -> ", lr, lg, lb, " -> ", len(my_color))
 
 
 # -----------------------------------------------------------------------------
@@ -36,23 +36,12 @@ def main_loop():
 
     print("Main Loop")
 
-    print(array)
-
-    new_array = array[::-1]
-    print(new_array)
+    my_color = Colors()
 
     i = 0
 
-    logic = Logic()
-
     while i < 100:
-        if i == 5:
-            logic.set_state(0)
-        else:
-            logic.clear_state(0)
-        # print(logic.input_state[0], logic.input_state[1], logic.input_state[2], logic.input_state[3])
-        #print(logic.input_state)
-        #print(logic.check_state_or())
+        set_pixel_ws2812(0, 0, my_color.start)
         time.sleep(loop_time)
         i += 1
 

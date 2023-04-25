@@ -80,109 +80,94 @@ class Target:
 
 
 class Tracks:
-    num_of_tracks   = 24
-    num_of_leds     = 79
+    num_of_tracks   = 16            # Anzahl der Schrott-Teilbahnen
+    num_of_leds     = 79            # Alle gleich Lang
     # PIO Nummer -> Zuweisung LED-Segment zu LED-Stripe
-    ws2812_pio      = [  0,         # 1
-                         0,         # 2
-                         0,         # 3
-                         1,         # 4
-                         1,         # 5
-                         1,         # 6
-                         2,         # 7
-                         2,         # 8
-                         2,         # 9
-                         3,         # 10
-                         3,         # 11
-                         3,         # 12
-                         4,         # 13
-                         4,         # 14
-                         4,         # 15
-                         5,         # 16
-                         5,         # 17
-                         5,         # 18
-                         6,         # 19
-                         6,         # 20
-                         6,         # 21
-                         7,         # 22
-                         7,         # 23
-                         7]         # 24
+    ws2812_pio      = [  0,         # 0     ->  1.
+                         0,         # 1     ->  2.
+                         1,         # 2     ->  3.
+                         1,         # 3     ->  4.
+                         2,         # 4     ->  5.
+                         2,         # 5     ->  6.
+                         3,         # 6     ->  7.
+                         3,         # 7     ->  8.
+                         4,         # 8     ->  9.
+                         4,         # 9     -> 10.
+                         5,         # 10    -> 11.
+                         5,         # 11    -> 12.
+                         6,         # 12    -> 13.
+                         6,         # 13    -> 14.
+                         7,         # 14    -> 15.
+                         7]         # 15    -> 16.
+
+    offset          = [  0,                 # 0     ->  1.
+                         num_of_leds,       # 1     ->  2.
+                         0,                 # 2     ->  3.
+                         num_of_leds,       # 3     ->  4.
+                         0,                 # 4     ->  5.
+                         num_of_leds,       # 5     ->  6.
+                         0,                 # 6     ->  7.
+                         num_of_leds,       # 7     ->  8.
+                         0,                 # 8     ->  9.
+                         num_of_leds,       # 9     -> 10.
+                         0,                 # 10    -> 11.
+                         num_of_leds,       # 11    -> 12.
+                         0,                 # 12    -> 13.
+                         num_of_leds,       # 13    -> 14.
+                         0,                 # 14    -> 15.
+                         num_of_leds]       # 15    -> 16.
+
     # Direction -> True = Rechts nach Links -> False = Links nach Rechts
-    direction       = [ True,       # 1
-                        False,      # 2
-                        False,      # 3
-                        False,      # 4
-                        False,      # 5
-                        False,      # 6
-                        False,      # 6
-                        False,      # 7
-                        False,      # 8
-                        False,      # 9
-                        False,      # 10
-                        False,      # 11
-                        False,      # 12
-                        False,      # 13
-                        False,      # 14
-                        False,      # 15
-                        False,      # 16
-                        False,      # 17
-                        False,      # 18
-                        False,      # 19
-                        False,      # 20
-                        False,      # 21
-                        False,      # 22
-                        False,      # 23
-                        False]      # 24
+    direction       = [ True,       # 0     ->  1.
+                        False,      # 1     ->  2.
+                        True,       # 2     ->  3.
+                        False,      # 3     ->  4.
+                        True,       # 4     ->  5.
+                        False,      # 5     ->  6.
+                        True,       # 6     ->  7.
+                        False,      # 7     ->  8.
+                        True,       # 8     ->  9.
+                        False,      # 9     -> 10.
+                        True,       # 10    -> 11.
+                        False,      # 11    -> 12.
+                        True,       # 12    -> 13.
+                        False,      # 13    -> 14.
+                        True,       # 14    -> 15.
+                        False]      # 15    -> 16.
     # Gibt die seitliche Position an, auf den der Radar-Strahls die Bahn treffen könnte
-    track_hit_x     = [  0,         # 1
-                         1,         # 2
-                         2,         # 3
-                         3,         # 4
-                         0,         # 5
-                         0,         # 6
-                         0,         # 7
-                         0,         # 8
-                         0,         # 9
-                         0,         # 10
-                         0,         # 11
-                         0,         # 12
-                         0,         # 13
-                         0,         # 14
-                         0,         # 15
-                         0,         # 16
-                         0,         # 17
-                         0,         # 18
-                         0,         # 19
-                         0,         # 20
-                         0,         # 21
-                         0,         # 22
-                         0,         # 23
-                         0]         # 24
+    track_hit_x     = [  0,         # 0     ->  1.
+                         1,         # 1     ->  2.
+                         2,         # 2     ->  3.
+                         3,         # 3     ->  4.
+                         0,         # 4     ->  5.
+                         0,         # 5     ->  6.
+                         0,         # 6     ->  7.
+                         0,         # 7     ->  8.
+                         0,         # 8     ->  9.
+                         0,         # 9     -> 10.
+                         0,         # 10    -> 11.
+                         0,         # 11    -> 12.
+                         0,         # 12    -> 13.
+                         0,         # 13    -> 14.
+                         0,         # 14    -> 15.
+                         0]         # 15    -> 16.
     # Gibt die Höhe an, auf der der Rader-Strahl die Bahn treffen könnte
-    track_hit_y     = [ 20,         # 1
-                        20,         # 2
-                        20,         # 3
-                        20,         # 4
-                        20,         # 5
-                        20,         # 6
-                        20,         # 7
-                        20,         # 8
-                        20,         # 9
-                        20,         # 10
-                        20,         # 11
-                        20,         # 12
-                        20,         # 13
-                        20,         # 14
-                        20,         # 15
-                        20,         # 16
-                        20,         # 17
-                        20,         # 18
-                        20,         # 19
-                        20,         # 20
-                        20,         # 21
-                        20,         # 22
-                        20,         # 23
-                        20]         # 24
+    track_hit_y     = [ 20,         # 0     ->  1.
+                        20,         # 1     ->  2.
+                        20,         # 2     ->  3.
+                        20,         # 3     ->  4.
+                        20,         # 4     ->  5.
+                        20,         # 5     ->  6.
+                        20,         # 6     ->  7.
+                        20,         # 7     ->  8.
+                        20,         # 8     ->  9.
+                        20,         # 9     -> 10.
+                        20,         # 10    -> 11.
+                        20,         # 11    -> 12.
+                        20,         # 12    -> 13.
+                        20,         # 13    -> 14.
+                        20,         # 14    -> 15.
+                        20]         # 15    -> 16.
 
 
 class Colors:
