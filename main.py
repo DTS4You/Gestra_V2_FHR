@@ -26,7 +26,7 @@ def init_run():
 
 # -----------------------------------------------------------------------------
 def loop_run():
-    loop_time = 200
+    loop_time = 200             # Loop-Time in (ms)
     i = 0
     while True:
         module_objects.ddbs_default()
