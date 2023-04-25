@@ -6,6 +6,8 @@
 import machine
 import time
 
+import defaults
+
 
 class SPI:
 
@@ -59,11 +61,22 @@ class SPI:
         self.ddb_num = ddb
         self.reg_write(0xB2, 0)
 
+    def ddb_show_all(self):
+        for i in range(defaults.DDB.num_of_ddbs):
+            self.ddb_show(i)
+
     def ddb_set_rgb(self, ddb, r, g, b):
         self.ddb_num = ddb
         self.data[0] = r
         self.data[1] = g
         self.data[2] = b
+        self.reg_write(0xA1, 3)
+
+    def ddb_set_color(self, ddb, color):            # !!! New
+        self.ddb_num = ddb
+        self.data[0] = color[0]
+        self.data[1] = color[1]
+        self.data[2] = color[2]
         self.reg_write(0xA1, 3)
 
     def ddb_set_led(self, ddb, num):

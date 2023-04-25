@@ -171,20 +171,21 @@ class Tracks:
 
 
 class Colors:
-    default         = [  0,  0,  5]
-    start           = [  0, 20,  0]
-    end             = [ 20,  0,  0]
-    led_on          = [ 50, 50, 50]
-    led_off         = [  0,  0,  0]
-    target          = [ 10, 20, 30]
-    radar_send      = [ 10, 20, 30]
-    radar_receive   = [ 10, 20, 30]
+    default         = [  0,  0,  5]         # Blau 2%
+    start           = [  0, 20,  0]         # Grün
+    end             = [ 20,  0,  0]         # Rot
+    led_on          = [ 50, 50, 50]         # Ein -> weiß
+    led_off         = [  0,  0,  0]         # Aus
+    target          = [ 50, 50,  0]         # Gelb
+    radar_send      = [  0,  0, 50]         # Blau
+    radar_receive   = [ 50,  0,  0]         # Rot
 
 
 class Values:
-    loop_time       = 0.3
-    wait_cycle_min  = 2                  # Anzahl der min. Radarstrahlenverläufe bis neue Schottteile erzeugt werden
-    wait_cycle_max  = 10                 # Anzahl der max. Radarstrahlenverläufe bis neue Schottteile erzeugt werden
+    loop_time_ms    = 300                   # Loop-Time in (ms)
+    loop_time_s     = loop_time_ms / 1000
+    wait_cycle_min  = 2                     # Anzahl der min. Radarstrahlenverläufe bis neue Schottteile erzeugt werden
+    wait_cycle_max  = 10                    # Anzahl der max. Radarstrahlenverläufe bis neue Schottteile erzeugt werden
 
 
 # -----------------------------------------------------------------------------

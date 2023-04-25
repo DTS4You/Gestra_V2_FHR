@@ -149,7 +149,7 @@ def generate_tracks():
     return my_tracks
 
 
-def init_ddbs():
+def ddbs_init():
     for i in range(defaults.DDB.num_of_ddbs):
         ddb.ddb_init(i, radar_beams[i].offset + radar_beams[i].num_pix)
         # print(radar_beams[i].offset + radar_beams[i].num_pix)
@@ -210,8 +210,8 @@ def generate_objects():
     radar_beams = generate_radar_beams()
     radar_reflects = generate_radar_reflect()
     state_logic = State_Machine()
-    ddb = SPI()
-    stripe = []
+    ddb = SPI()                                 # SPI-Funktionen für Digi-Dot-Booster Module
+    stripe = []                                 # WS2812-PIO vorbereiten und anlegen
     for i in range(defaults.Stripe.num_of_stripes):
         stripe.append(Neopixel(defaults.Stripe.num_of_leds,
                                defaults.Stripe.pio_no[i],
@@ -224,7 +224,7 @@ def generate_objects():
 def main():
     print("Start Objects")
     generate_objects()
-    init_ddbs()
+    ddbs_init()
     ddbs_default()
     ws2812_defaults()
     for i in range(4):
