@@ -9,11 +9,17 @@ import time
 
 class GPIO:
 
-    def __init__(self):
+    def __init__(self, blink_time=10, run_time= 1000):
         i2c = I2C(0, scl=Pin(21), sda=Pin(20))
         self.mcp = MCP23017(i2c, 0x20)
         self.input = False
         self.output = False
+        self.state = False
+        self.run_counter = 0
+        self.run_time = run_time
+        self.blink_state = False
+        self.blink_counter = 0
+        self.blink_time = blink_time
 
     def get_input(self, pin):
         self.input = self.mcp.pin(pin, mode=1, pullup=True)
@@ -23,24 +29,32 @@ class GPIO:
         self.mcp.pin(pin, mode=0, value=state)
         return self.output
 
-
-class Button():
-    def __init__(self):
-        self.state = False
-        self.blink_counter = 0
-
+    def get_button(self):
+        self.state = self.state or self.get_input(8)
+        if self.state:
+            self.blink_counter += 1
+            if self.blink_counter > self.blink_time:
+                self.blink_state = not self.blink_state
+                self.blink_counter = 0
+            self.run_counter += 1
+            if self.run_counter > self.run_time:
+                self.state = False
+                self.blink_state = False
+                self.blink_counter = 0
+                self.run_counter = 0
+        self.set_output(0, not self.blink_state)
+        return self.state
 
 
 # -----------------------------------------------------------------------------
 def main():
     gpio = GPIO()
-    
+
     while True:
-        gpio.set_output(0, 0)
-        time.sleep(0.3)
-        gpio.set_output(0, 1)
-        time.sleep(0.3)
-        print(gpio.get_input(8))
+
+        if gpio.get_button():
+            print("On")
+        time.sleep(0.03)
 
 
 # ------------------------------------------------------------------------------
