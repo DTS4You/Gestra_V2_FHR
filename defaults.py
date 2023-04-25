@@ -182,7 +182,7 @@ class Colors:
 
 
 class Values:
-    loop_time_ms    = 300                   # Loop-Time in (ms)
+    loop_time_ms    = 30                    # Loop-Time in (ms)
     loop_time_s     = loop_time_ms / 1000
     wait_cycle_min  = 2                     # Anzahl der min. Radarstrahlenverläufe bis neue Schottteile erzeugt werden
     wait_cycle_max  = 10                    # Anzahl der max. Radarstrahlenverläufe bis neue Schottteile erzeugt werden

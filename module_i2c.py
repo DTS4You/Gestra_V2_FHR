@@ -24,6 +24,13 @@ class GPIO:
         return self.output
 
 
+class Button():
+    def __init__(self):
+        self.state = False
+        self.blink_counter = 0
+
+
+
 # -----------------------------------------------------------------------------
 def main():
     gpio = GPIO()

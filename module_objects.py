@@ -4,6 +4,7 @@
 # #############################################################################
 import time
 import defaults
+import module_i2c
 import module_radar
 import module_target
 import module_tracks
@@ -143,8 +144,8 @@ def generate_tracks():
         my_tracks.append(module_tracks.Track_Seg(defaults.Tracks.num_of_leds,
                                                  defaults.Tracks.offset[i],
                                                  defaults.Tracks.direction[i],
-                                                 defaults.Tracks.track_hit_x[i],
-                                                 defaults.Tracks.track_hit_y[i]
+                                                 defaults.Tracks.track_hit_y[i],
+                                                 defaults.Tracks.track_hit_z[i]
                                                  ))
     return my_tracks
 
@@ -200,8 +201,16 @@ def ws2812_set_pixel(target, pos, color=defaults.Colors.default):       # !!! Ne
     print(_stripe, pos, r, g, b)
 
 
+def gpio_set_output(value):
+    gpio.set_output(0, value)
+
+
+def gpio_get_input():
+    return gpio.get_input(8)
+
+
 def generate_objects():
-    global state_logic, tracks, targets, radar_beams, radar_reflects, ddb, stripe
+    global state_logic, tracks, targets, radar_beams, radar_reflects, ddb, stripe, gpio
     print("Generate Objects")
     tracks = generate_tracks()
     targets = generate_targets()
@@ -215,6 +224,7 @@ def generate_objects():
                                defaults.Stripe.pio_no[i],
                                defaults.Stripe.pin_no[i],
                                "GRB"))
+    gpio = module_i2c.GPIO()
 
 
 # -----------------------------------------------------------------------------
