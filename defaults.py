@@ -14,7 +14,7 @@ class Stripe:
 
 
 class Radar_Beams:
-    num_of_beams    = 4
+    num_of_beams    = 4                 # Anzahl Radar Sendestrahlen
     # num_of_leds     = 79              # LEDs in Senderichtung
     num_of_leds     = 12                # LEDs in Senderichtung === Debug ===
     target_hit_x    = 60                # Trefferposition von Links nach Rechts in LEDs gerechnet
