@@ -4,6 +4,7 @@
 # #############################################################################
 from machine import Pin, I2C
 from lib.mcp23017 import MCP23017
+import time
 
 
 class GPIO:
@@ -26,8 +27,13 @@ class GPIO:
 # -----------------------------------------------------------------------------
 def main():
     gpio = GPIO()
-    print(gpio.set_output(0, 1))
-    print(gpio.get_input(1))
+    
+    while True:
+        gpio.set_output(0, 0)
+        time.sleep(0.3)
+        gpio.set_output(0, 1)
+        time.sleep(0.3)
+        print(gpio.get_input(8))
 
 
 # ------------------------------------------------------------------------------
