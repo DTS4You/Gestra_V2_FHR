@@ -23,6 +23,10 @@ def init_run():
     module_objects.ddbs_init()                  # Digi-Dot-Booster Module initalisieren
     module_objects.ddbs_default()               # Vorgabewerte ausgeben
     module_objects.ws2812_defaults()            # WS2812-PIO Einheiten initalisieren
+    time.sleep(1)
+    module_objects.ddbs_start_stop()
+    time.sleep(2)
+    module_objects.ddbs_default()               # Vorgabewerte ausgeben
     button = module_i2c.GPIO(5, 100)
 
     print("Init End!")
@@ -35,7 +39,7 @@ def loop_run():
     while True:
 
         if button.get_button():
-            module_objects.ddbs_default()
+            module_objects.ddbs_start_stop()
             if i > 10:
                 module_objects.ws2812_defaults()
                 i = 0

@@ -39,8 +39,8 @@ class Radar_Reflect:
 #                        42,             # 13 -> 14. LED-Stripe
 #                        46,             # 14 -> 15. LED-Stripe
 #                        44]             # 15 -> 16. LED-Stripe
-    num_of_leds     = [ 4,             # _0 ->  1. LED-Stripe
-                        4,             # _1 ->  2. LED-Stripe
+    num_of_leds     = [ 6,             # _0 ->  1. LED-Stripe
+                        6,             # _1 ->  2. LED-Stripe
                         4,             # _2 ->  3. LED-Stripe
                         4,             # _3 ->  4. LED-Stripe
                         4,             # _4 ->  5. LED-Stripe

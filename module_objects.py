@@ -171,6 +171,19 @@ def ws2812_defaults():
         stripe[i].show()
 
 
+def ddbs_start_stop():
+    for i in range(4):
+        set_pixel_ddb_beams(i, 0, defaults.Colors.start)
+        set_pixel_ddb_beams(i, radar_beams[i].num_pix - 1, defaults.Colors.end)
+    for i in range(16):
+        set_pixel_ddb_reflect(i, 0, defaults.Colors.start)
+        set_pixel_ddb_reflect(i, radar_reflects[i].num_pix - 1, defaults.Colors.end)
+    ddb.ddb_show(0)
+    ddb.ddb_show(1)
+    ddb.ddb_show(2)
+    ddb.ddb_show(3)
+
+
 def set_pixel_ddb_beams(beam, pos, color=defaults.Colors.default):
     r = color[0]
     g = color[1]
