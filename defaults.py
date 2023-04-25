@@ -134,8 +134,8 @@ class Tracks:
                         False,      # 13    -> 14.
                         True,       # 14    -> 15.
                         False]      # 15    -> 16.
-    # Gibt die seitliche Position an, auf den der Radar-Strahls die Bahn treffen könnte
-    track_hit_x     = [  0,         # 0     ->  1.
+    # Gibt die Y-Position (hinten-vorne) an, auf den der Radar-Strahls die Bahn treffen könnte
+    track_hit_y     = [  0,         # 0     ->  1.
                          1,         # 1     ->  2.
                          2,         # 2     ->  3.
                          3,         # 3     ->  4.
@@ -152,7 +152,7 @@ class Tracks:
                          0,         # 14    -> 15.
                          0]         # 15    -> 16.
     # Gibt die Höhe an, auf der der Rader-Strahl die Bahn treffen könnte
-    track_hit_y     = [ 20,         # 0     ->  1.
+    track_hit_z     = [ 20,         # 0     ->  1.
                         20,         # 1     ->  2.
                         20,         # 2     ->  3.
                         20,         # 3     ->  4.

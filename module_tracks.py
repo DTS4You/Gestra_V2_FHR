@@ -34,14 +34,12 @@ def main():
         my_tracks.append(Track_Seg(defaults.Tracks.num_of_leds,
                                    defaults.Tracks.offset[i],
                                    defaults.Tracks.direction[i],
-                                   defaults.Tracks.track_hit_x[i],
-                                   defaults.Tracks.track_hit_y[i]))
+                                   defaults.Tracks.track_hit_y[i],
+                                   defaults.Tracks.track_hit_z[i]))
 
     print(len(my_tracks))
-    print(my_tracks[0].num_pix)
-    print(my_tracks[0].offset)
-    print(my_tracks[0].direction)
-
+    print("LEDs->", my_tracks[0].num_pix, "| Offset->", my_tracks[0].offset, "| Dir->", my_tracks[0].direction,
+          "| hit_y->", my_tracks[0].hit_rb_y, "| hit_z->", my_tracks[0].hit_rb_z)
 
 
 # ------------------------------------------------------------------------------
