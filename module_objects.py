@@ -26,16 +26,17 @@ class State_Machine():
         self.radar_end_flag = False  # Alle Radar-Strahlen sind am Ende
 
     def next_step(self):
-        if self.check_radar_end():
+        if self.check_radar_end():              # Radar-Sende-Strahlen am Ende -> neue Schrottteil-Position
             print("New Radar sequence")
             self.next_target_pos()
             self.reset_radar_pos()
 
-        else:
+        else:                                   # Neue Radar-Sende-Strahlen Position
             print("Next Radar position")
             for i in range(len(radar_beams)):
                 radar_beams[i].next_position()
                 print("Radar_Pos: ", radar_beams[i].get_position())
+                # Ausgabe der Radar-Sende-Position zu den DDB-Stripes
 
     def reset_radar_pos(self):
         for i in range(len(radar_beams)):
