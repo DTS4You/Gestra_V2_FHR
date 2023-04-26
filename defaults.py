@@ -17,7 +17,7 @@ class Radar_Beams:
     num_of_beams    = 4                 # Anzahl Radar Sendestrahlen
     # num_of_leds     = 79              # LEDs in Senderichtung
     num_of_leds     = 12                # LEDs in Senderichtung === Debug ===
-    target_hit_x    = 60                # Trefferposition von Links nach Rechts in LEDs gerechnet
+    target_hit_x    = 44                # Trefferposition von Links nach Rechts in LEDs gerechnet
     ddb             = [ 0, 1, 2, 3]
 
 
@@ -39,8 +39,8 @@ class Radar_Reflect:
 #                        42,             # 13 -> 14. LED-Stripe
 #                        46,             # 14 -> 15. LED-Stripe
 #                        44]             # 15 -> 16. LED-Stripe
-    num_of_leds     = [ 6,             # _0 ->  1. LED-Stripe
-                        6,             # _1 ->  2. LED-Stripe
+    num_of_leds     = [ 4,             # _0 ->  1. LED-Stripe
+                        4,             # _1 ->  2. LED-Stripe
                         4,             # _2 ->  3. LED-Stripe
                         4,             # _3 ->  4. LED-Stripe
                         4,             # _4 ->  5. LED-Stripe
@@ -135,39 +135,39 @@ class Tracks:
                         True,       # 14    -> 15.
                         False]      # 15    -> 16.
     # Gibt die Y-Position (hinten-vorne) an, auf den der Radar-Strahls die Bahn treffen könnte
-    track_hit_y     = [  0,         # 0     ->  1.
+    track_hit_y     = [  0,         # 0     ->  1.      -> Einspeisung 1
                          1,         # 1     ->  2.
-                         2,         # 2     ->  3.
+                         2,         # 2     ->  3.      -> Einspeisung 2
                          3,         # 3     ->  4.
-                         0,         # 4     ->  5.
-                         0,         # 5     ->  6.
-                         0,         # 6     ->  7.
-                         0,         # 7     ->  8.
-                         0,         # 8     ->  9.
-                         0,         # 9     -> 10.
-                         0,         # 10    -> 11.
-                         0,         # 11    -> 12.
-                         0,         # 12    -> 13.
-                         0,         # 13    -> 14.
-                         0,         # 14    -> 15.
-                         0]         # 15    -> 16.
+                         0,         # 4     ->  5.      -> Einspeisung 3
+                         1,         # 5     ->  6.
+                         2,         # 6     ->  7.      -> Einspeisung 4
+                         3,         # 7     ->  8.
+                         0,         # 8     ->  9.      -> Einspeisung 5
+                         1,         # 9     -> 10.
+                         2,         # 10    -> 11.      -> Einspeisung 6
+                         3,         # 11    -> 12.
+                         0,         # 12    -> 13.      -> Einspeisung 7
+                         1,         # 13    -> 14.
+                         2,         # 14    -> 15.      -> Einspeisung 8
+                         3]         # 15    -> 16.
     # Gibt die Höhe an, auf der der Rader-Strahl die Bahn treffen könnte
-    track_hit_z     = [ 20,         # 0     ->  1.
-                        20,         # 1     ->  2.
-                        20,         # 2     ->  3.
-                        20,         # 3     ->  4.
-                        20,         # 4     ->  5.
-                        20,         # 5     ->  6.
-                        20,         # 6     ->  7.
-                        20,         # 7     ->  8.
-                        20,         # 8     ->  9.
-                        20,         # 9     -> 10.
-                        20,         # 10    -> 11.
-                        20,         # 11    -> 12.
-                        20,         # 12    -> 13.
-                        20,         # 13    -> 14.
-                        20,         # 14    -> 15.
-                        20]         # 15    -> 16.
+    track_hit_z     = [ 22,         # 0     ->  1.
+                        22,         # 1     ->  2.
+                        22,         # 2     ->  3.
+                        22,         # 3     ->  4.
+                        38,         # 4     ->  5.
+                        38,         # 5     ->  6.
+                        38,         # 6     ->  7.
+                        38,         # 7     ->  8.
+                        38,         # 8     ->  9.
+                        38,         # 9     -> 10.
+                        38,         # 10    -> 11.
+                        38,         # 11    -> 12.
+                        44,         # 12    -> 13.
+                        44,         # 13    -> 14.
+                        44,         # 14    -> 15.
+                        44]         # 15    -> 16.
 
 
 class Colors:
