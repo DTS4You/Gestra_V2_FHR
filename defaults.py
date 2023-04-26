@@ -15,7 +15,7 @@ class Stripe:
 
 class Radar_Beams:
     num_of_beams    = 4                 # Anzahl Radar Sendestrahlen
-    # num_of_leds     = 79              # LEDs in Senderichtung
+    # num_of_leds     = 64              # LEDs in Senderichtung
     num_of_leds     = 12                # LEDs in Senderichtung === Debug ===
     target_hit_x    = 44                # Trefferposition von Links nach Rechts in LEDs gerechnet
     ddb             = [ 0, 1, 2, 3]
@@ -81,7 +81,8 @@ class Target:
 
 class Tracks:
     num_of_tracks   = 16            # Anzahl der Schrott-Teilbahnen
-    num_of_leds     = 79            # Alle gleich Lang
+    # num_of_leds     = 79            # Alle gleich Lang
+    num_of_leds     = 79            # Debug !!!
     # PIO Nummer -> Zuweisung LED-Segment zu LED-Stripe
     ws2812_pio      = [  0,         # 0     ->  1.
                          0,         # 1     ->  2.
