@@ -79,6 +79,8 @@ class Radar_Reflect:
 
 class Target:
     num_of_targets = 8
+    timeout         = [ 0,  3,  7, 11, 13, 20, 24, 30]
+    track           = [ 5,  8, 15,  6,  9, 10,  7, 11]
 
 
 class Tracks:

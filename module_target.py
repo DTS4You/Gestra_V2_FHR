@@ -8,27 +8,31 @@ import defaults
 
 class Target:
 
-    def __init__(self):
+    def __init__(self, track, offset):
         """Schrottteile \n
         Position -> Links nach Rechts \n
         Track_num -> Bahn-Nummer"""
         self.position = 0
-        self.track_num = 0
+        self.track_num = track
+        self.offset = offset
+        self.offset_pos = offset
         self.activ_flag = False
         self.start_flag = False
         self.end_flag = False
 
     def next_position(self):
-        if not self.end_flag and self.start_flag:
-            self.activ_flag = True
+        if self.offset_pos > 0:
+            self.offset_pos -= 1
+        else:
             if self.position < defaults.Tracks.num_of_leds:
-                # print(self.position)
+                self.activ_flag = True
                 self.position += 1
             else:
                 # print("Target_End_Flag")
                 self.end_flag = True
                 self.activ_flag = False
                 self.start_flag = False
+                self.offset_pos = self.offset
                 self.position = 0
 
     def get_position(self):

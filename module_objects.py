@@ -17,7 +17,7 @@ import random
 
 class State_Machine():
 
-    def __init__(self, wait_cycles=2):
+    def __init__(self, wait_cycles=3):
         self.wait_cycles = wait_cycles  # Wartezyklen bis ein neues Schrottteil erzeugt wird
         self.wait_counter = 0  # Zähler für Wartezyklen
         self.new_flag = True
@@ -29,7 +29,10 @@ class State_Machine():
         if self.check_radar_end():              # Radar-Sende-Strahlen am Ende -> neue Schrottteil-Position
             print("New Radar sequence")
             self.next_target_pos()
+            self.wait_target()
             self.reset_radar_pos()
+            check_max_targets()
+            draw_targets()
             ddbs_default_all()
             ddbs_show_all()
         else:                                   # Neue Radar-Sende-Strahlen Position
@@ -52,16 +55,18 @@ class State_Machine():
     def next_target_pos(self):
         for i in range(len(targets)):
             targets[i].next_position()
-            print("Target_Pos: ", targets[i].get_position())
+            #print("Target_Pos: ", targets[i].get_position())
         self.step_target_flag = True
 
-    def next_target(self):
+    def wait_target(self):
         if self.wait_counter < self.wait_cycles:
             self.wait_counter += 1
         else:
+            print("Wait Counter")
             self.wait_counter = 0
             self.new_flag = False
             self.wait_cycles = random.randint(defaults.Values.wait_cycle_min, defaults.Values.wait_cycle_max)
+            make_target()
 
     def check_radar_end(self):
         for i in range(len(radar_beams)):
@@ -84,6 +89,20 @@ def check_max_targets():
         state_logic.max_target_flag = True
     else:
         state_logic.max_target_flag = False
+
+
+def make_target():
+    if not state_logic.max_target_flag:
+        my_track = random.randint(0, 15)
+        print(my_track)
+
+
+def draw_targets():
+    for i in range(len(targets)):
+        if targets[i].activ_flag:
+            print("Target -> ", targets[i].track_num, targets[i].position)
+            ws2812_track_set_pixel(targets[i].track_num, targets[i].position, defaults.Colors.target)
+    ws2812_show_all()
 
 
 def generate_radar_beams():
@@ -148,7 +167,7 @@ def generate_radar_reflect():
 def generate_targets():
     my_targets = []
     for i in range(defaults.Target.num_of_targets):
-        my_targets.append(module_target.Target())
+        my_targets.append(module_target.Target(defaults.Target.track[i], defaults.Target.timeout[i]))
     return my_targets
 
 
