@@ -49,16 +49,12 @@ def loop_run():
     while True:
 
         if button.get_button():
-            module_objects.ddbs_start_stop()
-            if i > 10:
-                module_objects.ws2812_start_stop()
-                #print("Button WS2812")
-                i = 0
-            i += 1
+            module_objects.logic_next_step()
         else:
+            module_objects.logic_reset()
             module_objects.ddbs_default_all()
             module_objects.ddbs_show_all()
-            if i > 10:
+            if i > 20:
                 module_objects.ws2812_defaults_all()
                 module_objects.ws2812_show_all()
                 i = 0

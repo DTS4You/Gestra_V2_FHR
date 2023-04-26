@@ -33,11 +33,11 @@ class State_Machine():
             ddbs_default_all()
             ddbs_show_all()
         else:                                   # Neue Radar-Sende-Strahlen Position
-            print("Next Radar position")
+            #print("Next Radar position")
             ddbs_default_all()
             for i in range(len(radar_beams)):
                 radar_beams[i].next_position()
-                print("Radar_Pos: ", radar_beams[i].get_position())
+                #print("Radar_Pos: ", radar_beams[i].get_position())
                 # Ausgabe der Radar-Sende-Position zu den DDB-Stripes
                 ddb_beams_set_pixel(i, radar_beams[i].get_position() - 1, defaults.Colors.radar_send)
             ddbs_show_all()
@@ -51,6 +51,7 @@ class State_Machine():
 
     def next_target_pos(self):
         for i in range(len(targets)):
+            targets[i].next_position()
             print("Target_Pos: ", targets[i].get_position())
         self.step_target_flag = True
 
@@ -66,6 +67,12 @@ class State_Machine():
         for i in range(len(radar_beams)):
             self.radar_end_flag = self.radar_end_flag or radar_beams[i].get_end_flag()
         return self.radar_end_flag
+
+    def reset_all(self):
+        self.reset_radar_pos()
+        self.step_target_flag = False
+        self.max_target_flag = False
+        self.radar_end_flag = False
 
 
 def check_max_targets():
@@ -262,6 +269,14 @@ def ws2812_start_stop():
         ws2812_show_all()
 
 
+def logic_reset():
+    state_logic.reset_all()
+
+
+def logic_next_step():
+    state_logic.next_step()
+
+
 def gpio_set_output(value):
     gpio.set_output(0, value)
 
@@ -305,12 +320,12 @@ def main():
     ws2812_show_all()
     ws2812_start_stop()
     i = 0
-    while i < 50:
+    while i < 200:
         state_logic.next_step()
-        print(state_logic.check_radar_end())
-        print(state_logic.wait_cycles)
+        #print(state_logic.check_radar_end())
+        #print(state_logic.wait_cycles)
         i += 1
-        time.sleep(0.3)
+        time.sleep(0.1)
 
 
 # ------------------------------------------------------------------------------

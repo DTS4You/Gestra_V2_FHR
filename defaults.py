@@ -78,7 +78,7 @@ class Radar_Reflect:
 
 
 class Target:
-    num_of_targets = 10
+    num_of_targets = 8
 
 
 class Tracks:
