@@ -23,17 +23,20 @@ def init_run():
     print("Init Run")
 
     module_objects.generate_objects()           # Objekte anlegen
-    module_objects.ddbs_init()                  # Digi-Dot-Booster Module initalisieren
-    module_objects.ddbs_default()               # Vorgabewerte ausgeben
-    module_objects.ddbs_show_all()              # Anzeigen
-    module_objects.ws2812_defaults()            # WS2812-PIO Einheiten initalisieren
-    module_objects.ws2812_defaults_all()        # Anzeigen
+    module_objects.ddbs_init()                  # Digi-Dot-Booster Module init
+    module_objects.ws2812_init()                # WS2812 init
+    module_objects.ddbs_default_all()           # Vorgabewerte ausgeben
+    module_objects.ddbs_show_all()
+    module_objects.ws2812_defaults_all()        # Vorgabewerte ausgeben
+    module_objects.ws2812_show_all()
     time.sleep(1)
     module_objects.ddbs_start_stop()
     module_objects.ws2812_start_stop()
-    module_objects.ws2812_set_pixel(0, 0, defaults.Colors.target)
     time.sleep(2)
-    module_objects.ddbs_default()               # Vorgabewerte ausgeben
+    module_objects.ddbs_default_all()           # Vorgabewerte ausgeben
+    module_objects.ddbs_show_all()
+    module_objects.ws2812_defaults_all()
+    module_objects.ws2812_show_all()
     button = module_i2c.GPIO(5, 100)
 
     print("Init End!")
@@ -48,13 +51,16 @@ def loop_run():
         if button.get_button():
             module_objects.ddbs_start_stop()
             if i > 10:
-                module_objects.ws2812_defaults()
+                module_objects.ws2812_start_stop()
+                #print("Button WS2812")
                 i = 0
             i += 1
         else:
-            module_objects.ddbs_default()
+            module_objects.ddbs_default_all()
+            module_objects.ddbs_show_all()
             if i > 10:
-                module_objects.ws2812_defaults()
+                module_objects.ws2812_defaults_all()
+                module_objects.ws2812_show_all()
                 i = 0
             i += 1
         time.sleep_ms(defaults.Values.loop_time_ms)

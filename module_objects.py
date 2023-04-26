@@ -30,13 +30,17 @@ class State_Machine():
             print("New Radar sequence")
             self.next_target_pos()
             self.reset_radar_pos()
-
+            ddbs_default_all()
+            ddbs_show_all()
         else:                                   # Neue Radar-Sende-Strahlen Position
             print("Next Radar position")
+            ddbs_default_all()
             for i in range(len(radar_beams)):
                 radar_beams[i].next_position()
                 print("Radar_Pos: ", radar_beams[i].get_position())
                 # Ausgabe der Radar-Sende-Position zu den DDB-Stripes
+                ddb_beams_set_pixel(i, radar_beams[i].get_position() - 1, defaults.Colors.radar_send)
+            ddbs_show_all()
 
     def reset_radar_pos(self):
         for i in range(len(radar_beams)):
@@ -157,22 +161,29 @@ def generate_tracks():
 def ddbs_init():
     for i in range(defaults.DDB.num_of_ddbs):
         ddb.ddb_init(i, 250)
+        time.sleep_ms(20)
         # print(radar_beams[i].offset + radar_beams[i].num_pix)
 
 
-def ddbs_default():
+def ddbs_default_show():
+    ddbs_default_all()
+    ddbs_show_all()
+
+
+def ddbs_default_all():
     for i in range(defaults.DDB.num_of_ddbs):
         r = defaults.Colors.default[0]
         g = defaults.Colors.default[1]
         b = defaults.Colors.default[2]
         ddb.ddb_set_rgb(i, r, g, b)
         ddb.ddb_set_all(i)
-        time.sleep_ms(20)
+        time.sleep_ms(defaults.Values.ddb_wait_time)
 
 
 def ddbs_show_all():
     for i in range(defaults.DDB.num_of_ddbs):
         ddb.ddb_show(i)
+        #time.sleep_ms(defaults.Values.ddb_wait_time)
 
 
 def ddbs_start_stop():
@@ -246,9 +257,9 @@ def ws2812_track_set_pixel(_track, pos, color=defaults.Colors.default):
 
 def ws2812_start_stop():
     for i in range(16):         # Alle Tracks zeichnen Start - Stop
-        ws2812_set_pixel(tracks[i].ws2812_pio, 0, defaults.Colors.start)
-        ws2812_set_pixel(tracks[i].ws2812_pio, tracks[i].num_pix - 1, defaults.Colors.end)
-        ddbs_show_all()
+        ws2812_track_set_pixel( i, 0, defaults.Colors.start)
+        ws2812_track_set_pixel( i, tracks[i].num_pix - 1, defaults.Colors.end)
+        ws2812_show_all()
 
 
 def gpio_set_output(value):
@@ -283,27 +294,23 @@ def main():
     print("Start Objects")
     generate_objects()
     ddbs_init()
-    ddbs_default()
+    ddbs_default_show()
     #ddb_beams_set_pixel(0, 0, defaults.Colors.target)
     ddbs_start_stop()
     ddbs_show_all()
     ws2812_init()
     ws2812_defaults_all()
     ws2812_show_all()
-    ws2812_track_set_pixel(2, 0, defaults.Colors.target)
+    ws2812_track_set_pixel(0, 0, defaults.Colors.target)
     ws2812_show_all()
-    #for i in range(16):
-    #    ws2812_defaults_all()
-    #    ws2812_track_set_pixel(0, i, defaults.Colors.target)
-    #    ws2812_show(0)
-    #    time.sleep(0.05)
-    # i = 0
-    # while i < 50:
-    #    state_logic.next_step()
-    #    #print(state_logic.check_radar_end())
-    #    #print(state_logic.wait_cycles)
-    #    i += 1
-    #    time.sleep(0.3)
+    ws2812_start_stop()
+    i = 0
+    while i < 50:
+        state_logic.next_step()
+        print(state_logic.check_radar_end())
+        print(state_logic.wait_cycles)
+        i += 1
+        time.sleep(0.3)
 
 
 # ------------------------------------------------------------------------------

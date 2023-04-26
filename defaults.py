@@ -180,7 +180,7 @@ class Colors:
     led_on          = [ 50, 50, 50]         # Ein -> weiß
     led_off         = [  0,  0,  0]         # Aus
     target          = [ 50, 20,  0]         # Gelb
-    radar_send      = [  0,  0, 50]         # Blau
+    radar_send      = [  0, 50,  0]         # Blau
     radar_receive   = [ 50,  0,  0]         # Rot
 
 
@@ -189,6 +189,7 @@ class Values:
     loop_time_s     = loop_time_ms / 1000
     wait_cycle_min  = 2                     # Anzahl der min. Radarstrahlenverläufe bis neue Schottteile erzeugt werden
     wait_cycle_max  = 10                    # Anzahl der max. Radarstrahlenverläufe bis neue Schottteile erzeugt werden
+    ddb_wait_time   = 5
 
 
 # -----------------------------------------------------------------------------
