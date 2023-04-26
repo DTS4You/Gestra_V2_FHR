@@ -8,7 +8,9 @@ class DDB:
 
 class Stripe:
     num_of_stripes  = 8
-    num_of_leds     = 79 * 2                                # Kann über die Segmente berechnet werden
+    # num_of_pixel    = 79					 # LEDs pro Segment 
+    num_of_pixel    = 16					# LEDs === Debug ===
+    num_of_leds     = num_of_pixel * 2                      # Kann über die Segmente berechnet werden
     pio_no          = [  0,  1,  2,  3,  4,  5,  6,  7]     # PIO 0-7
     pin_no          = [  2,  3,  4,  5,  6,  7,  8,  9]     # GPIO 2-9
 
@@ -82,7 +84,7 @@ class Target:
 class Tracks:
     num_of_tracks   = 16            # Anzahl der Schrott-Teilbahnen
     # num_of_leds     = 79            # Alle gleich Lang
-    num_of_leds     = 79            # Debug !!!
+    num_of_leds     = 16            # Debug !!!
     # PIO Nummer -> Zuweisung LED-Segment zu LED-Stripe
     ws2812_pio      = [  0,         # 0     ->  1.
                          0,         # 1     ->  2.
@@ -172,12 +174,12 @@ class Tracks:
 
 
 class Colors:
-    default         = [  0,  0,  5]         # Blau 2%
+    default         = [  0,  0,  2]         # Blau 2%
     start           = [  0, 20,  0]         # Grün
     end             = [ 20,  0,  0]         # Rot
     led_on          = [ 50, 50, 50]         # Ein -> weiß
     led_off         = [  0,  0,  0]         # Aus
-    target          = [ 50, 50,  0]         # Gelb
+    target          = [ 50, 20,  0]         # Gelb
     radar_send      = [  0,  0, 50]         # Blau
     radar_receive   = [ 50,  0,  0]         # Rot
 

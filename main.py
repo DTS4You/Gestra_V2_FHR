@@ -11,7 +11,7 @@ import module_i2c
 # import micropython
 # import machine
 
-global button
+# global button
 # global state_logic, tracks, targets, radar_beams, radar_reflects, ddb, stripe, gpio
 
 
@@ -25,9 +25,13 @@ def init_run():
     module_objects.generate_objects()           # Objekte anlegen
     module_objects.ddbs_init()                  # Digi-Dot-Booster Module initalisieren
     module_objects.ddbs_default()               # Vorgabewerte ausgeben
+    module_objects.ddbs_show_all()              # Anzeigen
     module_objects.ws2812_defaults()            # WS2812-PIO Einheiten initalisieren
+    module_objects.ws2812_defaults_all()        # Anzeigen
     time.sleep(1)
     module_objects.ddbs_start_stop()
+    module_objects.ws2812_start_stop()
+    module_objects.ws2812_set_pixel(0, 0, defaults.Colors.target)
     time.sleep(2)
     module_objects.ddbs_default()               # Vorgabewerte ausgeben
     button = module_i2c.GPIO(5, 100)

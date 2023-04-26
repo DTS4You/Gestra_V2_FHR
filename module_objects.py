@@ -12,7 +12,7 @@ from module_spi import SPI
 from lib.neopixel import Neopixel
 import random
 
-global state_logic, tracks, targets, radar_beams, radar_reflects, ddb, stripe, gpio
+# global state_logic, tracks, targets, radar_beams, radar_reflects, ddb, stripe, gpio
 
 
 class State_Machine():
@@ -144,7 +144,8 @@ def generate_targets():
 def generate_tracks():
     my_tracks = []
     for i in range(defaults.Tracks.num_of_tracks):
-        my_tracks.append(module_tracks.Track_Seg(defaults.Tracks.num_of_leds,
+        my_tracks.append(module_tracks.Track_Seg(defaults.Tracks.ws2812_pio[i],
+                                                 defaults.Tracks.num_of_leds,
                                                  defaults.Tracks.offset[i],
                                                  defaults.Tracks.direction[i],
                                                  defaults.Tracks.track_hit_y[i],
@@ -155,51 +156,44 @@ def generate_tracks():
 
 def ddbs_init():
     for i in range(defaults.DDB.num_of_ddbs):
-        ddb.ddb_init(i, radar_beams[i].offset + radar_beams[i].num_pix)
+        ddb.ddb_init(i, 250)
         # print(radar_beams[i].offset + radar_beams[i].num_pix)
 
 
 def ddbs_default():
     for i in range(defaults.DDB.num_of_ddbs):
-        ddb.ddb_set_rgb(i, 0, 0, 10)
+        r = defaults.Colors.default[0]
+        g = defaults.Colors.default[1]
+        b = defaults.Colors.default[2]
+        ddb.ddb_set_rgb(i, r, g, b)
         ddb.ddb_set_all(i)
         time.sleep_ms(20)
+
+
+def ddbs_show_all():
+    for i in range(defaults.DDB.num_of_ddbs):
         ddb.ddb_show(i)
-
-
-def ws2812_defaults():
-    for i in range(len(stripe)):
-        stripe[i].brightness(255)
-        stripe[i].fill((0, 0, 10))
-        stripe[i].show()
 
 
 def ddbs_start_stop():
     for i in range(4):
-        set_pixel_ddb_beams(i, 0, defaults.Colors.start)
-        set_pixel_ddb_beams(i, radar_beams[i].num_pix - 1, defaults.Colors.end)
+        ddb_beams_set_pixel(i, 0, defaults.Colors.start)
+        ddb_beams_set_pixel(i, radar_beams[i].num_pix - 1, defaults.Colors.end)
     for i in range(16):
-        set_pixel_ddb_reflect(i, 0, defaults.Colors.start)
-        set_pixel_ddb_reflect(i, radar_reflects[i].num_pix - 1, defaults.Colors.end)
-    ddb.ddb_show(0)
-    ddb.ddb_show(1)
-    ddb.ddb_show(2)
-    ddb.ddb_show(3)
+        ddb_reflect_set_pixel(i, 0, defaults.Colors.start)
+        ddb_reflect_set_pixel(i, radar_reflects[i].num_pix - 1, defaults.Colors.end)
+    ddbs_show_all()
 
 
-def set_pixel_ddb_beams(beam, pos, color=defaults.Colors.default):
-    r = color[0]
-    g = color[1]
-    b = color[2]
+def ddb_beams_set_pixel(beam, pos, color=defaults.Colors.default):
+    r, g, b = color
     ddb_num = radar_beams[beam].ddb
     ddb.ddb_set_rgb(ddb_num, r, g, b)
     ddb.ddb_set_led(ddb_num, pos + radar_beams[beam].offset)
 
 
-def set_pixel_ddb_reflect(beam, pos, color=defaults.Colors.default):
-    r = color[0]
-    g = color[1]
-    b = color[2]
+def ddb_reflect_set_pixel(beam, pos, color=defaults.Colors.default):
+    r, g, b = color
     ddb_num = radar_reflects[beam].ddb
     ddb.ddb_set_rgb(ddb_num, r, g, b)
     if radar_reflects[beam].direction:
@@ -211,10 +205,50 @@ def set_pixel_ddb_reflect(beam, pos, color=defaults.Colors.default):
     ddb.ddb_set_led(ddb_num, pos + radar_reflects[beam].offset)
 
 
-def ws2812_set_pixel(target, pos, color=defaults.Colors.default):       # !!! New
-    r, b, g = color
-    _stripe = targets[target].track_num
-    print(_stripe, pos, r, g, b)
+def ws2812_init():
+    for i in range(len(stripe)):
+        stripe[i].brightness(255)
+        stripe[i].fill(defaults.Colors.led_off)
+        stripe[i].show()
+
+
+def ws2812_defaults(_stripe):
+    stripe[_stripe].fill(defaults.Colors.default)
+
+
+def ws2812_defaults_all():
+    for i in range(len(stripe)):
+        ws2812_defaults(i)
+
+
+def ws2812_show(_stripe):
+    stripe[_stripe].show()
+
+
+def ws2812_show_all():
+    for i in range(len(stripe)):
+        stripe[i].show()
+
+
+def ws2812_set_pixel(_stripe, pos, color=defaults.Colors.default):       # WS2812 Pixel setzen
+    stripe[_stripe].set_pixel(pos, color)
+
+
+def ws2812_track_set_pixel(_track, pos, color=defaults.Colors.default):
+    if tracks[_track].direction:
+        # print("Left-Right")
+        pos = tracks[_track].num_pix - pos - 1
+    else:
+        # print("Right-Left")
+        pass
+    ws2812_set_pixel(tracks[_track].ws2812_pio, pos + tracks[_track].offset, color)
+
+
+def ws2812_start_stop():
+    for i in range(16):         # Alle Tracks zeichnen Start - Stop
+        ws2812_set_pixel(tracks[i].ws2812_pio, 0, defaults.Colors.start)
+        ws2812_set_pixel(tracks[i].ws2812_pio, tracks[i].num_pix - 1, defaults.Colors.end)
+        ddbs_show_all()
 
 
 def gpio_set_output(value):
@@ -250,17 +284,19 @@ def main():
     generate_objects()
     ddbs_init()
     ddbs_default()
-    ws2812_defaults()
-    for i in range(4):
-        set_pixel_ddb_beams(i, 0, defaults.Colors.start)
-        set_pixel_ddb_beams(i, radar_beams[i].num_pix - 1, defaults.Colors.end)
-    for i in range(16):
-        set_pixel_ddb_reflect(i, 0, defaults.Colors.start)
-        set_pixel_ddb_reflect(i, radar_reflects[i].num_pix - 1, defaults.Colors.end)
-    ddb.ddb_show(0)
-    ddb.ddb_show(1)
-    ddb.ddb_show(2)
-    ddb.ddb_show(3)
+    #ddb_beams_set_pixel(0, 0, defaults.Colors.target)
+    ddbs_start_stop()
+    ddbs_show_all()
+    ws2812_init()
+    ws2812_defaults_all()
+    ws2812_show_all()
+    ws2812_track_set_pixel(2, 0, defaults.Colors.target)
+    ws2812_show_all()
+    #for i in range(16):
+    #    ws2812_defaults_all()
+    #    ws2812_track_set_pixel(0, i, defaults.Colors.target)
+    #    ws2812_show(0)
+    #    time.sleep(0.05)
     # i = 0
     # while i < 50:
     #    state_logic.next_step()
