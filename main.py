@@ -11,6 +11,9 @@ import module_i2c
 # import micropython
 # import machine
 
+global button
+# global state_logic, tracks, targets, radar_beams, radar_reflects, ddb, stripe, gpio
+
 
 # -----------------------------------------------------------------------------
 def init_run():

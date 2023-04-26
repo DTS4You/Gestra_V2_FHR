@@ -12,6 +12,8 @@ from module_spi import SPI
 from lib.neopixel import Neopixel
 import random
 
+global state_logic, tracks, targets, radar_beams, radar_reflects, ddb, stripe, gpio
+
 
 class State_Machine():
 
