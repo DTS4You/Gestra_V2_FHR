@@ -19,7 +19,7 @@ class Radar_Beams:
     num_of_beams    = 4                     # Anzahl Radar Sendestrahlen
     num_of_leds     = 64                    # LEDs in Senderichtung
     # num_of_leds     = 12                  # LEDs in Senderichtung === Debug ===
-    target_hit_x    = 44                    # Trefferposition von Links nach Rechts in LEDs gerechnet
+    target_hit_x    = 48                    # Trefferposition von Links nach Rechts in LEDs gerechnet
     #target_hit_x    = 5                    # Trefferposition von Links nach Rechts in LEDs gerechnet === Debug ===
     ddb             = [ 0, 1, 2, 3]
 
@@ -80,8 +80,8 @@ class Radar_Reflect:
 
 class Target:
     num_of_targets = 8
-    timeout         = [ 0,  3,  7, 11, 13, 20, 24, 30]
-    track           = [ 5,  8, 15,  6,  9, 10,  7, 11]
+    timeout         = [ 0,  7,  11, 18, 23, 31, 34, 40]
+    track           = [ 3,  8, 15,  1,  9,  3,  2, 11]
 
 
 class Tracks:
