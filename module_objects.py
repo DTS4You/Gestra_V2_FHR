@@ -29,7 +29,7 @@ class State_Machine():
         if self.check_radar_end():              # Radar-Sende-Strahlen am Ende -> neue Schrottteil-Position
             print("New Radar sequence")
             self.next_target_pos()
-            self.wait_target()
+            # self.wait_target()
             self.reset_radar_pos()
             check_max_targets()
             draw_targets()
@@ -98,10 +98,11 @@ def make_target():
 
 
 def draw_targets():
+    ws2812_defaults_all()
     for i in range(len(targets)):
         if targets[i].activ_flag:
             print("Target -> ", targets[i].track_num, targets[i].position)
-            ws2812_track_set_pixel(targets[i].track_num, targets[i].position, defaults.Colors.target)
+            ws2812_track_set_pixel(targets[i].track_num, targets[i].position - 1, defaults.Colors.target)
     ws2812_show_all()
 
 
@@ -335,16 +336,13 @@ def main():
     ws2812_init()
     ws2812_defaults_all()
     ws2812_show_all()
-    ws2812_track_set_pixel(0, 0, defaults.Colors.target)
-    ws2812_show_all()
-    ws2812_start_stop()
     i = 0
-    while i < 200:
+    while i < 500:
         state_logic.next_step()
         #print(state_logic.check_radar_end())
         #print(state_logic.wait_cycles)
         i += 1
-        time.sleep(0.1)
+        time.sleep(0.05)
 
 
 # ------------------------------------------------------------------------------

@@ -30,7 +30,6 @@ class GPIO:
         return self.output
 
     def get_button(self):
-        self.state = self.state or self.get_input(8)
         if self.state:
             self.blink_counter += 1
             if self.blink_counter > self.blink_time:
@@ -42,6 +41,8 @@ class GPIO:
                 self.blink_state = False
                 self.blink_counter = 0
                 self.run_counter = 0
+        else:
+            self.state = self.state or self.get_input(8)
         self.set_output(0, not self.blink_state)
         return self.state
 

@@ -8,8 +8,8 @@ class DDB:
 
 class Stripe:
     num_of_stripes  = 8
-    # num_of_pixel    = 79					 # LEDs pro Segment 
-    num_of_pixel    = 16					# LEDs === Debug ===
+    num_of_pixel    = 79					 # LEDs pro Segment
+    # num_of_pixel    = 16					# LEDs === Debug ===
     num_of_leds     = num_of_pixel * 2                      # Kann über die Segmente berechnet werden
     pio_no          = [  0,  1,  2,  3,  4,  5,  6,  7]     # PIO 0-7
     pin_no          = [  2,  3,  4,  5,  6,  7,  8,  9]     # GPIO 2-9
@@ -17,46 +17,46 @@ class Stripe:
 
 class Radar_Beams:
     num_of_beams    = 4                 # Anzahl Radar Sendestrahlen
-    # num_of_leds     = 64              # LEDs in Senderichtung
-    num_of_leds     = 12                # LEDs in Senderichtung === Debug ===
+    num_of_leds     = 64              # LEDs in Senderichtung
+    # num_of_leds     = 12                # LEDs in Senderichtung === Debug ===
     target_hit_x    = 44                # Trefferposition von Links nach Rechts in LEDs gerechnet
     ddb             = [ 0, 1, 2, 3]
 
 
 class Radar_Reflect:
     num_of_beams    = 16
-#    num_of_leds     = [ 33,             # _0 ->  1. LED-Stripe
-#                        31,             # _1 ->  2. LED-Stripe
-#                        51,             # _2 ->  3. LED-Stripe
-#                        48,             # _3 ->  4. LED-Stripe
-#                        33,             # _4 ->  5. LED-Stripe
-#                        31,             # _5 ->  6. LED-Stripe
-#                        51,             # _6 ->  7. LED-Stripe
-#                        48,             # _7 ->  8. LED-Stripe
-#                        44,             # _8 ->  9. LED-Stripe
-#                        42,             # _9 -> 10. LED-Stripe
-#                        46,             # 10 -> 11. LED-Stripe
-#                        44,             # 11 -> 12. LED-Stripe
-#                        44,             # 12 -> 13. LED-Stripe
-#                        42,             # 13 -> 14. LED-Stripe
-#                        46,             # 14 -> 15. LED-Stripe
-#                        44]             # 15 -> 16. LED-Stripe
-    num_of_leds     = [ 4,             # _0 ->  1. LED-Stripe
-                        4,             # _1 ->  2. LED-Stripe
-                        4,             # _2 ->  3. LED-Stripe
-                        4,             # _3 ->  4. LED-Stripe
-                        4,             # _4 ->  5. LED-Stripe
-                        4,             # _5 ->  6. LED-Stripe
-                        4,             # _6 ->  7. LED-Stripe
-                        4,             # _7 ->  8. LED-Stripe
-                        4,             # _8 ->  9. LED-Stripe
-                        4,             # _9 -> 10. LED-Stripe
-                        4,             # 10 -> 11. LED-Stripe
-                        4,             # 11 -> 12. LED-Stripe
-                        4,             # 12 -> 13. LED-Stripe
-                        4,             # 13 -> 14. LED-Stripe
-                        4,             # 14 -> 15. LED-Stripe
-                        4]             # 15 -> 16. LED-Stripe
+    num_of_leds     = [ 33,             # _0 ->  1. LED-Stripe
+                        31,             # _1 ->  2. LED-Stripe
+                        51,             # _2 ->  3. LED-Stripe
+                        48,             # _3 ->  4. LED-Stripe
+                        33,             # _4 ->  5. LED-Stripe
+                        31,             # _5 ->  6. LED-Stripe
+                        51,             # _6 ->  7. LED-Stripe
+                        48,             # _7 ->  8. LED-Stripe
+                        44,             # _8 ->  9. LED-Stripe
+                        42,             # _9 -> 10. LED-Stripe
+                        46,             # 10 -> 11. LED-Stripe
+                        44,             # 11 -> 12. LED-Stripe
+                        44,             # 12 -> 13. LED-Stripe
+                        42,             # 13 -> 14. LED-Stripe
+                        46,             # 14 -> 15. LED-Stripe
+                        44]             # 15 -> 16. LED-Stripe
+#    num_of_leds     = [ 4,             # _0 ->  1. LED-Stripe
+#                        4,             # _1 ->  2. LED-Stripe
+#                        4,             # _2 ->  3. LED-Stripe
+#                        4,             # _3 ->  4. LED-Stripe
+#                        4,             # _4 ->  5. LED-Stripe
+#                        4,             # _5 ->  6. LED-Stripe
+#                        4,             # _6 ->  7. LED-Stripe
+#                        4,             # _7 ->  8. LED-Stripe
+#                        4,             # _8 ->  9. LED-Stripe
+#                        4,             # _9 -> 10. LED-Stripe
+#                        4,             # 10 -> 11. LED-Stripe
+#                        4,             # 11 -> 12. LED-Stripe
+#                        4,             # 12 -> 13. LED-Stripe
+#                        4,             # 13 -> 14. LED-Stripe
+#                        4,             # 14 -> 15. LED-Stripe
+#                        4]             # 15 -> 16. LED-Stripe
     num_of_ddb      = [ 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3]
 
     direction       = [ True,           # 0
@@ -187,7 +187,7 @@ class Colors:
 
 
 class Values:
-    loop_time_ms    = 30                    # Loop-Time in (ms)
+    loop_time_ms    = 10                    # Loop-Time in (ms)
     loop_time_s     = loop_time_ms / 1000
     wait_cycle_min  = 2                     # Anzahl der min. Radarstrahlenverläufe bis neue Schottteile erzeugt werden
     wait_cycle_max  = 10                    # Anzahl der max. Radarstrahlenverläufe bis neue Schottteile erzeugt werden
