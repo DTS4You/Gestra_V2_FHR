@@ -33,8 +33,6 @@ class State_Machine():
             self.reset_radar_pos()
             check_max_targets()
             draw_targets()
-            ddbs_default_all()
-            ddbs_show_all()
         else:                                   # Neue Radar-Sende-Strahlen Position
             #print("Next Radar position")
             ddbs_default_all()
@@ -101,11 +99,26 @@ def draw_targets():
     ws2812_defaults_all()
     for i in range(len(targets)):
         if targets[i].activ_flag:
-            print("Target -> ", targets[i].track_num, targets[i].position)
-            if targets[i].position == 44:
-                print("Treffer")
+            # print("Target -> ", targets[i].track_num, targets[i].position)
+            if targets[i].position == defaults.Radar_Beams.target_hit_x:
+                # print("Treffer")
+                draw_reflect()
+            else:
+                ddbs_default_all()
+                ddbs_show_all()
             ws2812_track_set_pixel(targets[i].track_num, targets[i].position - 1, defaults.Colors.target)
     ws2812_show_all()
+
+
+def draw_reflect():
+    for pos in range(50):
+        for i in range(16):
+            if radar_reflects[i].num_pix > pos:
+                ddb_reflect_set_pixel(i, pos, defaults.Colors.radar_receive)
+                if pos > 0:
+                    ddb_reflect_set_pixel(i, pos - 1, defaults.Colors.default)
+        ddbs_show_all()
+        time.sleep_ms(15)
 
 
 def generate_radar_beams():
