@@ -192,7 +192,7 @@ class Values:
     loop_time_s     = loop_time_ms / 1000
     wait_cycle_min  = 2                     # Anzahl der min. Radarstrahlenverläufe bis neue Schottteile erzeugt werden
     wait_cycle_max  = 10                    # Anzahl der max. Radarstrahlenverläufe bis neue Schottteile erzeugt werden
-    ddb_wait_time   = 700                   # in (us)
+    ddb_wait_time   = 800                   # in (us)
 
 
 # -----------------------------------------------------------------------------
