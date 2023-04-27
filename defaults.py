@@ -85,8 +85,8 @@ class Target:
 
 class Tracks:
     num_of_tracks   = 16            # Anzahl der Schrott-Teilbahnen
-    # num_of_leds     = 79            # Alle gleich Lang
-    num_of_leds     = 16            # Debug !!!
+    num_of_leds     = 79            # Alle gleich Lang
+    # num_of_leds     = 16            # Debug !!!
     # PIO Nummer -> Zuweisung LED-Segment zu LED-Stripe
     ws2812_pio      = [  0,         # 0     ->  1.
                          0,         # 1     ->  2.
@@ -187,11 +187,11 @@ class Colors:
 
 
 class Values:
-    loop_time_ms    = 10                    # Loop-Time in (ms)
+    loop_time_ms    = 16                    # Loop-Time in (ms)
     loop_time_s     = loop_time_ms / 1000
     wait_cycle_min  = 2                     # Anzahl der min. Radarstrahlenverläufe bis neue Schottteile erzeugt werden
     wait_cycle_max  = 10                    # Anzahl der max. Radarstrahlenverläufe bis neue Schottteile erzeugt werden
-    ddb_wait_time   = 5
+    ddb_wait_time   = 700                   # in (us)
 
 
 # -----------------------------------------------------------------------------

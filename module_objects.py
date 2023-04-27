@@ -204,7 +204,7 @@ def ddbs_default_all():
         b = defaults.Colors.default[2]
         ddb.ddb_set_rgb(i, r, g, b)
         ddb.ddb_set_all(i)
-        time.sleep_ms(defaults.Values.ddb_wait_time)
+        time.sleep_us(defaults.Values.ddb_wait_time)
 
 
 def ddbs_show_all():
