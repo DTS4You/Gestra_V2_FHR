@@ -37,7 +37,7 @@ def init_run():
     module_objects.ddbs_show_all()
     module_objects.ws2812_defaults_all()
     module_objects.ws2812_show_all()
-    button = module_i2c.GPIO(30, 2000)          # BlinkRate , Dauer
+    button = module_i2c.GPIO(30, 5000)          # BlinkRate , Dauer
 
     print("Init End!")
 

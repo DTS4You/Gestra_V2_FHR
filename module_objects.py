@@ -31,16 +31,18 @@ class State_Machine():
             self.next_target_pos()
             # self.wait_target()
             self.reset_radar_pos()
+            ddbs_default_all()
             check_max_targets()
             draw_targets()
         else:                                   # Neue Radar-Sende-Strahlen Position
             #print("Next Radar position")
-            ddbs_default_all()
             for i in range(len(radar_beams)):
                 radar_beams[i].next_position()
                 #print("Radar_Pos: ", radar_beams[i].get_position())
                 # Ausgabe der Radar-Sende-Position zu den DDB-Stripes
                 ddb_beams_set_pixel(i, radar_beams[i].get_position() - 1, defaults.Colors.radar_send)
+                if radar_beams[i].get_position() > 0:
+                    ddb_beams_set_pixel(i, radar_beams[i].get_position() - 2, defaults.Colors.default)
             ddbs_show_all()
 
     def reset_radar_pos(self):
